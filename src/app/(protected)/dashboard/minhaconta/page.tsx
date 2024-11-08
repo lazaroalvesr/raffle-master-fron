@@ -17,7 +17,7 @@ import Cookies from "js-cookie";
 import { dataProps } from "@/lib/interface"
 import { BaseURL } from "@/app/api/api"
 
-export default function ModalMinhaContaPage() {
+export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen: (open: boolean) => any }) {
     const { user, updateUser } = useUser()
     const [isEditing, setIsEditing] = useState(false)
     const token = Cookies.get("token");
@@ -95,7 +95,7 @@ export default function ModalMinhaContaPage() {
 
     return (
         <Card className="w-full z-50 max-w-md mx-auto">
-            <button className="absolute lg:right-[500px] md:right-[140px] md:top-[304px] md:rounded-l-none md:rounded-br-md right-4 items-center flex justify-center top-[30px] rounded-b-none lg:rounded-b-none lg:rounded-br-md rounded-md lg:rounded-l-none lg:top-[109px] lg:rounded-r-md w-12 h-12 bg-white">
+            <button onClick={() => setIsModalOpen(false)} className="absolute lg:right-[500px] md:right-[140px] md:top-[304px] md:rounded-l-none md:rounded-br-md right-4 items-center flex justify-center top-[30px] rounded-b-none lg:rounded-b-none lg:rounded-br-md rounded-md lg:rounded-l-none lg:top-[109px] lg:rounded-r-md w-12 h-12 bg-white">
                 <Image
                     src="/img/icons/close.svg"
                     width={35}
