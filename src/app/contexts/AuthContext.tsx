@@ -1,60 +1,28 @@
 "use client"
 
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { Role } from "@/lib/interface";
-
-interface Raffles {
-    name: string
-}
-
-interface Tickets {
-    name: string
-}
-
-interface Payment {
-    name: string
-}
-
-
-export type TUser = {
-    id: string;
-    name: string
-    email: string;
-    telephone: string
-    role: Role
-    access_token: string
-    raffles: Raffles[]
-    tickets: Tickets[]
-    Payment: Payment[]
-};
-
-export type AuthUser = {
-    token: string;
-    user: TUser;
-};
+import { AuthUser, Props } from "@/lib/interface";
 
 interface TAuthContext {
     user: AuthUser | null;
-    setUser: (user: AuthUser | null) => void
+    setUser: (user: AuthUser | null) => void;
+    updateUser: (userData: Partial<AuthUser['user']>) => void;
 }
 
 export const AuthContext = createContext<TAuthContext>({
     user: null,
-    setUser: () => { }
-})
-
-interface Props {
-    children: ReactNode
-}
+    setUser: () => { },
+    updateUser: () => { }
+});
 
 export const AuthProvider = ({ children }: Props) => {
-    const [user, setUser] = useState<AuthUser | null>(null)
+    const [user, setUser] = useState<AuthUser | null>(null);
 
     useEffect(() => {
         if (!user) {
             const existingUser = Cookies.get("user");
-
+            
             if (existingUser) {
                 try {
                     setUser(JSON.parse(existingUser));
@@ -63,12 +31,29 @@ export const AuthProvider = ({ children }: Props) => {
                 }
             }
         }
-    }, [])
+    }, []);
 
+    const updateUser = (userData: Partial<AuthUser['user']>) => {
+        if (user) {
+            const updatedUser = {
+                ...user,
+                user: {
+                    ...user.user,
+                    ...userData
+                }
+            };
+
+            setUser(updatedUser);
+            Cookies.set("user", JSON.stringify(updatedUser), {
+                expires: 7,
+                secure: true
+            });
+        }
+    };
 
     return (
-        <AuthContext.Provider value={{ user, setUser }}>
+        <AuthContext.Provider value={{ user, setUser, updateUser }}>
             {children}
         </AuthContext.Provider>
-    )
+    );
 }

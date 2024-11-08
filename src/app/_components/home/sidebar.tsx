@@ -70,7 +70,7 @@ export default function AppSidebar() {
                         <SidebarMenu>
                             <SidebarMenuItem>
                                 <SidebarMenuButton asChild>
-                                    <NavLink  href="/dashboard/meusbilhetes">
+                                    <NavLink href="/dashboard/meusbilhetes">
                                         <Ticket className="h-4 w-4" />
                                         <span>Bilhetes</span>
                                     </NavLink>
@@ -86,17 +86,17 @@ export default function AppSidebar() {
                             </SidebarMenuItem>
                             <SidebarMenuItem>
                                 <SidebarMenuButton asChild>
-                                    <a href="/como-funciona">
+                                    <Link href="/como-funciona">
                                         <HelpCircle className="h-4 w-4" />
                                         <span>Suporte</span>
-                                    </a>
+                                    </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>
                 <div className="flex-1" />
-                <SidebarSeparator/>
+                <SidebarSeparator />
                 <SidebarGroup>
                     <SidebarGroupContent className="hover:bg-sidebar-accent cursor-pointer py-2 rounded-lg">
                         <UserNav

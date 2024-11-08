@@ -1,6 +1,7 @@
 import { InfoPaymentText } from '@/lib/infoPaymentText';
+import { StatusPaymentCardProps } from '@/lib/interface';
 
-export const StatusPaymentCard = ({ infoPayment }: { infoPayment: string | undefined }) => {
+export const StatusPaymentCard = ({ infoPayment }: StatusPaymentCardProps) => {
     return (
         <button
             className={`text-white w-32 rounded-md text-center text-lg cursor-auto ${

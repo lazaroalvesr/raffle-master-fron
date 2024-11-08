@@ -3,21 +3,7 @@ import { formatDate } from "@/lib/formatDate";
 import { StatusPayment } from "./statusPayment";
 import PaymentInfoCard from "./card";
 import { formatCurrency } from "@/lib/formatCurrency ";
-
-interface Ticket {
-    nameRafle: string
-    infosName?: string;
-    infoPayment?: string;
-    infoDateBuy?: Date;
-    infoNamePayer?: string;
-    infoAmout: number;
-    ticketNumbers?: number[];
-    pixLink: string;
-}
-
-interface TableProps {
-    tickets?: Ticket[];
-}
+import { TableProps, Ticket } from "@/lib/interface";
 
 export const Table = ({ tickets = [] }: TableProps) => {
     const [show, setShow] = useState(false);
@@ -35,37 +21,37 @@ export const Table = ({ tickets = [] }: TableProps) => {
 
     return (
         <div className="border rounded-md flex">
-            <div className="w-full flex overflow-x-scroll lg:overflow-visible relative">
+            <div className="lg:w-full w-[370px] md:w-full flex overflow-x-scroll lg:overflow-visible relative">
                 <table className="w-full border-collapse">
                     <thead>
-                        <tr className="text-[17px] bg-gray-100">
+                        <tr className="text-[17px] bg-gray-100 h-12 lg:h-auto">
                             <th scope="col" className="px-4 lg:py-2 h-4 text-left">Nome</th>
-                            <th scope="col" className="px-4 lg:py-2 h-4 text-left">Status Pagamento</th>
-                            <th scope="col" className="px-4 lg:py-2 h-4 text-left">Data da compra</th>
-                            <th scope="col" className="px-4 lg:py-2 h-4 text-left">Valor</th>
-                            <th scope="col" className="px-4 lg:py-2 h-4 text-left">Informações</th>
+                            <th scope="col" className="px-4 lg:py-2 h-4 text-left hidden lg:table-cell md:table-cell">Status Pagamento</th>
+                            <th scope="col" className="px-4 lg:py-2 h-4 text-left hidden lg:table-cell ">Data da compra</th>
+                            <th scope="col" className="px-4 lg:py-2 h-4 text-left hidden lg:table-cell ">Valor</th>
+                            <th scope="col" className="px-4 lg:py-2 h-4 text-left ">Informações</th>
                         </tr>
                     </thead>
                     <tbody>
                         {tickets.length > 0 ? (
                             tickets.map((ticket, index) => (
                                 <tr key={index}>
-                                    <td className="px-4 py-2 w-60 text-lg overflow-hidden truncate">
-                                        <p className="lg:w-96 w-52 truncate">{ticket.infosName || "Nome não disponível"}</p>
+                                    <td className="px-4 py-2 w-60 lg:text-lg text-base overflow-hidden truncate">
+                                        <p className="lg:w-96 w-40truncate">{ticket.infosName || "Nome não disponível"}</p>
                                     </td>
-                                    <td className="px-4 py-2">
+                                    <td className="px-4 py-2  hidden lg:table-cell md:table-cell">
                                         <StatusPayment infoPayment={ticket.infoPayment} />
                                     </td>
-                                    <td className="px-4 py-2 text-lg">
+                                    <td className="px-4 py-2  text-lg  hidden lg:table-cell">
                                         {ticket.infoDateBuy ? formatDate(ticket.infoDateBuy) : "Data não disponível"}
                                     </td>
-                                    <td className="px-4 py-2 text-lg">
+                                    <td className="px-4 py-2  text-lg hidden lg:table-cell">
                                         {ticket.infoAmout ? formatCurrency(ticket.infoAmout) : "Valor não disponível"}
                                     </td>
-                                    <td className="px-4 py-2 text-lg">
+                                    <td className="px-4 py-2 lg:text-lg text-base">
                                         <button
                                             onClick={() => toggle(ticket)}
-                                            className="border border-black cursor-pointer rounded-[10px] text-center w-[178px]">
+                                            className="border mt-1 border-black cursor-pointer rounded-[10px] text-center w-40 py-1 lg:w-[178px]">
                                             Ver Informações
                                         </button>
                                     </td>
@@ -88,6 +74,7 @@ export const Table = ({ tickets = [] }: TableProps) => {
                             nameRafle={selectedTicket.nameRafle}
                             namePayer={selectedTicket.infoNamePayer}
                             paymentMethod="PIX"
+                            infoDateBuy={selectedTicket.infoDateBuy}
                             numTickets={selectedTicket.ticketNumbers}
                             infoPayment={selectedTicket.infoPayment}
                             pixLink={selectedTicket.pixLink}

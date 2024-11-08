@@ -1,6 +1,7 @@
 "use client"
-import { createContext, ReactNode } from 'react'
+import { createContext } from 'react'
 import Cookies from 'js-cookie';
+import { Props } from '@/lib/interface';
 
 interface clientCookiesContextType {
     getCookie: (name: string) => string | undefined;
@@ -9,10 +10,6 @@ interface clientCookiesContextType {
 }
 
 const clientCookieContext = createContext<clientCookiesContextType | undefined>(undefined);
-
-interface Props {
-    children: ReactNode
-}
 
 export const CLientCookiesProvider: React.FC<Props> = ({ children }) => {
     const getCookie = (name: string) => {

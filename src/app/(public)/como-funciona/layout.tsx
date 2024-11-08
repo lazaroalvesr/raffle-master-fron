@@ -1,5 +1,4 @@
-import Footer from "../_components/home/footer";
-import Header from "../_components/home/header";
+import Footer from "@/app/_components/home/footer";
 
 export default function DashboardLayout({
     children,
@@ -8,7 +7,6 @@ export default function DashboardLayout({
 }) {
     return (
         <section>
-            <Header/>
             {children}
             <Footer/>
         </section>

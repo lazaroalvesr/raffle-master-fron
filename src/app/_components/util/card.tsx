@@ -5,25 +5,17 @@ import { Ticket, QrCode } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
-import { StatusPaymentCard } from "./StatusPaymentCard"
+import { StatusPaymentCard } from "./statusPaymentCard"
+import { formatDate } from "@/lib/formatDate"
+import { InfoPaymentProps } from "@/lib/interface"
 
-interface InfoPaymentProps {
-    nameRafle: string
-    namePayer: string | any
-    infoPayment: string | any
-    paymentMethod: "PIX"
-    numTickets: number[] | any
-    pixLink: string
-    close: () => void
-}
-
-export default function PaymentInfoCard({ paymentMethod, close, namePayer, numTickets, infoPayment, pixLink, nameRafle }: InfoPaymentProps) {
+export default function PaymentInfoCard({ paymentMethod, close, namePayer, infoDateBuy, numTickets, infoPayment, pixLink, nameRafle }: InfoPaymentProps) {
     const [showAllTickets, setShowAllTickets] = useState(false);
 
     const toggleShowAllTickets = () => setShowAllTickets(!showAllTickets);
     return (
         <Card className="w-full max-w-md mx-auto relative">
-            <button onClick={close} className="w-10 lg:-right-10 -top-10 right-0 lg:-top-0 md:-top-0 md:-right-10 absolute shadow-md md:rounded-l-none rounded-l-md lg:rounded-l-none md:rounded-r-md rounded-r-md rounded-b-none lg:rounded-rb-none bg-white flex items-center justify-center">
+            <button onClick={close} className="w-10 lg:-right-10 rounded-b-none -top-10 right-0 lg:-top-0 md:-top-0 md:-right-10 absolute  md:rounded-l-none rounded-l-md lg:rounded-l-none md:rounded-r-md rounded-r-md shadow-md rounded-bl-none rounded-br-none lg:rounded-rb-none bg-white flex items-center justify-center">
                 <Image
                     src="/img/icons/close.svg"
                     width={40}
@@ -42,6 +34,10 @@ export default function PaymentInfoCard({ paymentMethod, close, namePayer, numTi
                 <div className="flex items-center justify-between">
                     <span className="text-sm font-medium text-muted-foreground">Nome Pagador:</span>
                     <span className="font-semibold">{namePayer}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium text-muted-foreground">Data da Compra:</span>
+                    <span className="font-semibold">{formatDate(infoDateBuy)}</span>
                 </div>
                 <div className="flex items-center justify-between">
                     <span className="text-sm font-medium text-muted-foreground">Método de Pagamento:</span>
@@ -85,7 +81,7 @@ export default function PaymentInfoCard({ paymentMethod, close, namePayer, numTi
             </CardContent>
             {infoPayment === "pending" && (
                 <CardFooter>
-                    <Link href={pixLink} className="w-full" target="_blank">
+                    <Link href={pixLink} className="w-full" target="_blank" rel="noopener noreferrer">
                         <Button className="w-full" variant="outline">
                             <QrCode className="w-4 h-4 mr-2" />
                             Pagar com PIX

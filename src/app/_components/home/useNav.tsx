@@ -1,8 +1,8 @@
+import ModalMinhaContaPage from "@/app/(protected)/dashboard/minhaconta/page"
 import { useAuth } from "@/app/hooks/useAuth"
 import {
   Avatar,
   AvatarFallback,
-  AvatarImage,
 } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
@@ -15,29 +15,34 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { getInitials } from "@/lib/getInitials"
 import { UserNavProps } from "@/lib/interface"
-import { Dialog, DialogContent, DialogTitle } from "@radix-ui/react-dialog"
 import { LogOut, Settings, User } from "lucide-react"
 import Image from "next/image"
-import Link from "next/link"
+import { useState } from "react"
+import ReactDOM from "react-dom"
 
 export function UserNav({ email, name }: UserNavProps) {
   const { logout } = useAuth()
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const Modal = () => {
+    return (
+      <div className="fixed inset-0 flex px-4 lg:px-0 items-center justify-center bg-black bg-opacity-50 z-50">
+        <ModalMinhaContaPage setIsModalOpen={setIsModalOpen} />
+      </div>
+    );
+  };
 
   return (
     <DropdownMenu>
-      <Dialog>
-        <DialogContent>
-          <DialogTitle>d</DialogTitle>
-        </DialogContent>
-      </Dialog>
+      {isModalOpen && <Modal />}
+
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative gap-2 focus:none w-full items-center  justify-between h-full rounded-lg">
+        <Button variant="ghost" className="relative gap-2 w-full items-center justify-between h-full rounded-lg">
           <div className="flex items-center gap-2">
             <Avatar className="h-9 w-9 -scroll-ml-3 border">
-              <AvatarImage src="/avatars/03.png" alt="@shadcn" />
               <AvatarFallback>{getInitials(name)}</AvatarFallback>
             </Avatar>
-            <div className="flex items-start flex-col space-y-1 i">
+            <div className="flex items-start flex-col space-y-1">
               <p className="text-sm font-medium leading-none">{name}</p>
               <p className="text-xs leading-none text-muted-foreground">{email}</p>
             </div>
@@ -52,14 +57,13 @@ export function UserNav({ email, name }: UserNavProps) {
           </div>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 " align="center" forceMount>
+
+      <DropdownMenuContent className="w-56" align="center" forceMount>
         <DropdownMenuGroup>
-          <Link href="/dashboard/minhaconta">
-            <DropdownMenuItem className="cursor-pointer">
-              <User />
-              Minha conta
-            </DropdownMenuItem>
-          </Link>
+          <DropdownMenuItem onClick={() => setIsModalOpen(true)} className="cursor-pointer">
+            <User />
+            Minha conta
+          </DropdownMenuItem>
           <DropdownMenuItem className="cursor-pointer">
             <Settings />
             Configurações

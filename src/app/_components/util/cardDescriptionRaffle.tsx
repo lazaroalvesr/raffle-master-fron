@@ -11,7 +11,7 @@ export const CardDescriptionRaffle = ({ title }: DescriptionCardProps) => {
     }
 
     return (
-        <div className="border border-[#D9D9D9] md:w-[380px] lg:w-[591px] mx-3 md:mx-0 lg:mx-0 rounded-md flex flex-col">
+        <div className="border border-[#D9D9D9] md:w-[370px] lg:w-[591px] mx-4 lg:mx-0 rounded-md flex flex-col">
             <div className="border-b border-[#D9D9D9] bg-[#F6F5F5] text-center py-[12px] rounded-t-md">
                 <p className="text-gray-800 text-[24px] font-medium ">{title}</p>
             </div>

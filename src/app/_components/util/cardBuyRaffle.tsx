@@ -2,6 +2,7 @@ import { useState } from "react";
 import { BuyCardProps } from "@/lib/interface";
 import { Ticket } from "lucide-react";
 import Image from "next/image";
+import { ButtonCardBuyRaffle } from "./buttonCardBuyRaffle";
 
 export const CardBuyRaffle = ({
     title,
@@ -54,10 +55,12 @@ export const CardBuyRaffle = ({
                         </div>
                     </div>
                     <div className="pt-[20px] flex flex-wrap items-center m-auto justify-normal w-[330px] lg:w-[430px] gap-3 lg:gap-7">
-                        <button onClick={() => handleSetCount(1)}>+1</button>
-                        <button onClick={() => handleSetCount(5)}>+5</button>
-                        <button onClick={() => handleSetCount(10)}>+10</button>
-                        <button onClick={() => handleSetCount(20)}>+20</button>
+                        <ButtonCardBuyRaffle number="+1" onClick={() => handleSetCount(1)} loading={loading} />
+                        <ButtonCardBuyRaffle number="+5" onClick={() => handleSetCount(5)} loading={loading} />
+                        <ButtonCardBuyRaffle number="+10" onClick={() => handleSetCount(10)} loading={loading} />
+                        <ButtonCardBuyRaffle number="+15" onClick={() => handleSetCount(15)} loading={loading} />
+                        <ButtonCardBuyRaffle number="+20" onClick={() => handleSetCount(20)} loading={loading} />
+
                     </div>
                     <button
                         onClick={handleBuyTicket}

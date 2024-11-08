@@ -1,10 +1,7 @@
 import { usePathname } from "next/navigation"
 import Link from "next/link"
+import { NavLinkProps } from "@/lib/interface"
 
-interface NavLinkProps {
-    href: string
-    children: React.ReactNode
-}
 
 export function NavLinkHeader({ href, children }: NavLinkProps) {
     const pathname = usePathname()

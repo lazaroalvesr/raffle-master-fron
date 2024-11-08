@@ -6,12 +6,11 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         <SidebarProvider defaultOpen={true}>
             <div className="flex min-h-screen">
                 <AppSidebar />
-
                 <main className="flex-1">
-                    <div className="md:hidden">
+                    <div className="lg:hidden">
                         <SidebarTrigger />
                     </div>
-                    <div className="p-4">
+                    <div>
                         {children}
                     </div>
                 </main>

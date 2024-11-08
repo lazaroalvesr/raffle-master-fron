@@ -53,8 +53,8 @@ export default function MeusBilhetesPage() {
 
 
     return (
-        <section>
-            <div className="flex items-center border-b mb-6 border-gray-200 lg:w-[1110px]">
+        <section className="flex flex-col w-96 pt-[18px] md:w-full lg:w-full m-auto md:justify-start md:items-start md:mx-4 justify-center items-center">
+            <div className="flex w-[370px] lg:px-8 border-b mb-6 border-gray-200 lg:w-[1110px]">
                 <h1 className="text-[28px] font-medium text-start">Meus Bilhetes</h1>
             </div>
             {loading ? (

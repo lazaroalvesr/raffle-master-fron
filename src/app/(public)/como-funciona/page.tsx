@@ -44,7 +44,7 @@ export default function ComoFuncionaPage() {
             <div className="text-center">
                 <h2 className="text-2xl font-bold mb-4">Pronto para Tentar a Sorte?</h2>
                 <p className="mb-6">Explore nossas rifas atuais e encontre a que mais combina com você!</p>
-                <Link href="/raffles">
+                <Link href="/rifas">
                     <Button size="lg">
                         Ver Rifas Disponíveis
                         <Ticket className="ml-2 h-4 w-4" />

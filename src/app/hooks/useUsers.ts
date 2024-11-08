@@ -1,15 +1,16 @@
 "use client"
 
 import { useContext } from "react";
-import { AuthContext, AuthUser } from "../contexts/AuthContext";
+import { AuthContext } from "../contexts/AuthContext";
 import Cookies from 'js-cookie';
+import { AuthUser } from "@/lib/interface";
 
 export const useUser = () => {
-    const { user, setUser } = useContext(AuthContext);
+    const { user, setUser, updateUser } = useContext(AuthContext);
 
     const addUser = (user: AuthUser) => {
         setUser(user);
-        Cookies.set("user", JSON.stringify(user),{
+        Cookies.set("user", JSON.stringify(user), {
             expires: 7,
             secure: true
         });
@@ -20,5 +21,5 @@ export const useUser = () => {
         Cookies.remove("user");
     };
 
-    return { user, addUser, removeUser };
+    return { user, addUser, removeUser, updateUser };
 };
