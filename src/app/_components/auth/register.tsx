@@ -9,6 +9,7 @@ export default function FormularioCadastro() {
     const { register } = useAuth();
 
     const [name, setNome] = useState<string>("");
+    const [surname, setSurname] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [telephone, setTelephone] = useState<string>("");
@@ -25,7 +26,7 @@ export default function FormularioCadastro() {
         setError(null);
 
         try {
-            const response = await register({ name, email, telephone, password });
+            const response = await register({ name, email, telephone, password , surname});
 
             if (response.success) {
                 setSuccessMessage("Conta criada com sucesso! Você pode fazer login agora.");
@@ -53,6 +54,8 @@ export default function FormularioCadastro() {
                     <Image
                         src="/img/pessoa-sorrindo.jpeg"
                         alt="Bilhetes de rifa coloridos"
+                        width={400}
+                        height={400}
                         className="w-full h-full object-cover"
                     />
                 </div>
@@ -71,7 +74,22 @@ export default function FormularioCadastro() {
                                 onChange={(e) => setNome(e.target.value)}
                                 className="mt-1 block w-full px-3 text-gray-800 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
                               focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                                placeholder="Seu nome completo"
+                                placeholder="Seu nome"
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="surname" className="block text-sm font-medium text-gray-700">Sobrenome</label>
+                            <input
+                                type="text"
+                                id="surname"
+                                name="surname"
+                                required
+                                value={surname}
+                                disabled={loading}
+                                onChange={(e) => setSurname(e.target.value)}
+                                className="mt-1 block w-full px-3 text-gray-800 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                              focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                                placeholder="Seu sobrenome"
                             />
                         </div>
                         <div>

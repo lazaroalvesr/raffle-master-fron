@@ -13,8 +13,7 @@ import { useUser } from "@/app/hooks/useUsers";
 import PurchaseCard from "@/app/_components/util/purchaseCard";
 import { ButtonCardBuyRaffle } from "@/app/_components/util/buttonCardBuyRaffle";
 import { Ticket } from "lucide-react";
-
-
+import { BaseURL } from "@/app/api/api";
 
 export default function RaffleUnique({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params);
@@ -45,6 +44,7 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
             setLoading(false);
         }
     }
+    
 
     console.log(raffles)
 
@@ -54,8 +54,8 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
         try {
             setErrorMessage("")
             const response = await axios.post(
-                'https://raffle-master-back.vercel.app/tickets/buy',
-                { userId, email, raffleId: raffles?.raffle?.id, quantity },
+                `${BaseURL}tickets/buy`,
+                { userId, email, raffleId: (await params).id, quantity },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             console.log(response)
@@ -66,11 +66,7 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
             setQuantity(quantity);
             setSuccessModalOpen(true);
         } catch (error: any) {
-            if (axios.isAxiosError(error) && error.response) {
                 setErrorMessage(error.response.data?.message || "Erro ao comprar número.");
-            } else {
-                setErrorMessage("Erro ao comprar número. Verifique sua conexão.");
-            }
         } finally {
             setLoadingBuy(false);
         }
@@ -194,7 +190,7 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
                             <PurchaseCard
                                 quantity={quantity}
                                 qrCode={buyTickets?.paymentDetails?.point_of_interaction?.transaction_data.qr_code_base64}
-                                amount={buyTickets?.buyTickets.paymentDetails?.amount}
+                                amount={buyTickets?.paymentDetails?.amount}
                                 pixLink={buyTickets?.paymentDetails?.pixUrl}
                             />
                         </div>

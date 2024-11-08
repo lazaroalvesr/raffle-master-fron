@@ -68,6 +68,7 @@ export interface LoginProps {
 
 export interface RegisterProps {
     name: string;
+    surname: string;
     email: string;
     telephone: string;
     password: string;

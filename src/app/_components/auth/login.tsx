@@ -49,6 +49,8 @@ export default function FormularioLogin() {
         <div className="w-1/2 hidden md:block">
           <Image
             src="/img/cara-sorrindo.jpg"
+            width={400}
+            height={400}
             alt="Bilhetes de rifa coloridos"
             className="w-full h-fit object-cover "
           />
