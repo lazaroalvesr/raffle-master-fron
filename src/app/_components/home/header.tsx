@@ -48,7 +48,7 @@ export default function Header() {
                             <NavLinkHeader href="/">
                                 Início
                             </NavLinkHeader>
-                            <NavLinkHeader href="/rifas">
+                            <NavLinkHeader href='/'>
                                 Rifas
                             </NavLinkHeader>
                             <NavLinkHeader href="/como-funciona">

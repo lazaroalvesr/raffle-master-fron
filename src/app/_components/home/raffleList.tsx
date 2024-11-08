@@ -1,3 +1,4 @@
+import { BaseURL } from "@/app/api/api";
 import { CardRaffle } from "../util/cardRaffle";
 
 interface Rafl{
@@ -7,7 +8,7 @@ interface Rafl{
 }
 
 async function getRaffles() {
-    const res = await fetch(`${process.env.API_URL}/raffle/getAll`, {
+    const res = await fetch(`${BaseURL}raffle/getAll`, {
         headers: { accept: 'application/json' },
     });
 
