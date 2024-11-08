@@ -17,7 +17,7 @@ import Cookies from "js-cookie";
 import { dataProps } from "@/lib/interface"
 import { BaseURL } from "@/app/api/api"
 
-export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen: (open: boolean) => any }) {
+export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>> })  {
     const { user, updateUser } = useUser()
     const [isEditing, setIsEditing] = useState(false)
     const token = Cookies.get("token");
