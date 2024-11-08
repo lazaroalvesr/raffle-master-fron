@@ -5,6 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Ticket } from "lucide-react"
 import { PurchaseBuyCardProps } from '@/lib/interface'
 import Link from 'next/link'
+import Image from "next/image"
 
 export default function Component({ quantity, amount, pixLink, qrCode }: PurchaseBuyCardProps) {
 
@@ -18,7 +19,7 @@ export default function Component({ quantity, amount, pixLink, qrCode }: Purchas
             </CardHeader>
             <CardContent className="space-y-4">
                 <div className='items-center justify-center flex'>
-                    <img
+                    <Image
                         src={qrCode}
                         width={40}
                         height={40}

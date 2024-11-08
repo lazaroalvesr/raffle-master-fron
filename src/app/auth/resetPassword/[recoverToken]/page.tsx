@@ -2,7 +2,7 @@
 
 import { use, useState } from 'react'
 import { Lock } from 'lucide-react'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
@@ -23,7 +23,7 @@ export default function EditPost({ params }: { params: Promise<{ recoverToken: s
         setLoading(true)
 
         try {
-            const response = await axios.patch(`https://raffle-master-back.vercel.app/auth/reset-password/${recoverToken}`, {
+            await axios.patch(`https://raffle-master-back.vercel.app/auth/reset-password/${recoverToken}`, {
                 password,
                 passwordConfirmation
             })
@@ -31,11 +31,15 @@ export default function EditPost({ params }: { params: Promise<{ recoverToken: s
             setSuccessMessage("Senha alterada com sucesso!")
             setTimeout(() => {
                 router.push("/auth/login")
-            },200)
+            }, 200)
 
-        } catch (err: any) {
-            setError(err.response?.data?.message || 'Erro ao alterar a senha.')
-            console.error('Error durante ao resetar a senha:', err)
+        } catch (err: unknown) {
+            if (err instanceof AxiosError) {
+                setError(err.response?.data?.message || 'Falha no envio. Verifique suas credenciais.')
+            } else {
+                setError('Um erro inesperado ocorreu. Tente novamente mais tarde.')
+            }
+            console.error('Error during login:', err)
         } finally {
             setLoading(false)
         }

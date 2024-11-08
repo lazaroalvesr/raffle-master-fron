@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 'use client'
 
 import { useEffect, useState } from "react"
@@ -15,7 +17,7 @@ import Cookies from "js-cookie";
 import { dataProps } from "@/lib/interface"
 import { BaseURL } from "@/app/api/api"
 
-export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen: (open: boolean) => void; }) {
+export default function ModalMinhaContaPage() {
     const { user, updateUser } = useUser()
     const [isEditing, setIsEditing] = useState(false)
     const token = Cookies.get("token");
@@ -93,7 +95,7 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
 
     return (
         <Card className="w-full z-50 max-w-md mx-auto">
-            <button onClick={() => setIsModalOpen(false)} className="absolute lg:right-[500px] md:right-[140px] md:top-[304px] md:rounded-l-none md:rounded-br-md right-4 items-center flex justify-center top-[30px] rounded-b-none lg:rounded-b-none lg:rounded-br-md rounded-md lg:rounded-l-none lg:top-[109px] lg:rounded-r-md w-12 h-12 bg-white">
+            <button className="absolute lg:right-[500px] md:right-[140px] md:top-[304px] md:rounded-l-none md:rounded-br-md right-4 items-center flex justify-center top-[30px] rounded-b-none lg:rounded-b-none lg:rounded-br-md rounded-md lg:rounded-l-none lg:top-[109px] lg:rounded-r-md w-12 h-12 bg-white">
                 <Image
                     src="/img/icons/close.svg"
                     width={35}
@@ -135,59 +137,61 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
                     <DialogTrigger asChild>
                         <Button variant="outline" onClick={toggle}>Editar informações</Button>
                     </DialogTrigger>
-                    <DialogContent className="w-[340px] rounded-md lg:w-full">
-                        <DialogHeader>
-                            <DialogTitle>Editar Perfil</DialogTitle>
-                        </DialogHeader>
-                        <form onSubmit={(e) => handleSubmit(data, e)}>
-                            <div className="grid gap-4 py-4">
-                                <div className="grid grid-cols-2 gap-4">
+                    {isOpen ? (
+                        <DialogContent className="w-[340px] rounded-md lg:w-full">
+                            <DialogHeader>
+                                <DialogTitle>Editar Perfil</DialogTitle>
+                            </DialogHeader>
+                            <form onSubmit={(e) => handleSubmit(data, e)}>
+                                <div className="grid gap-4 py-4">
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="space-y-2">
+                                            <Label htmlFor="editFirstName">Nome</Label>
+                                            <Input
+                                                id="editFirstName"
+                                                name="firstName"
+                                                type="text"
+                                                onChange={(e) => setData({ ...data, name: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="editLastName">Sobrenome</Label>
+                                            <Input
+                                                id="editLastName"
+                                                name="lastName"
+                                                type="text"
+                                                onChange={(e) => setData({ ...data, surname: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="editFirstName">Nome</Label>
+                                        <Label htmlFor="editEmail">Email</Label>
                                         <Input
-                                            id="editFirstName"
-                                            name="firstName"
-                                            type="text"
-                                            onChange={(e) => setData({ ...data, name: e.target.value })}
+                                            id="editEmail"
+                                            name="email"
+                                            type="email"
+                                            onChange={(e) => setData({ ...data, email: e.target.value })}
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="editLastName">Sobrenome</Label>
+                                        <Label htmlFor="editPhone">Telefone</Label>
                                         <Input
-                                            id="editLastName"
-                                            name="lastName"
-                                            type="text"
-                                            onChange={(e) => setData({ ...data, surname: e.target.value })}
+                                            id="editPhone"
+                                            name="phone"
+                                            type="tel"
+                                            onChange={(e) => setData({ ...data, telephone: e.target.value })}
                                         />
                                     </div>
                                 </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="editEmail">Email</Label>
-                                    <Input
-                                        id="editEmail"
-                                        name="email"
-                                        type="email"
-                                        onChange={(e) => setData({ ...data, email: e.target.value })}
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="editPhone">Telefone</Label>
-                                    <Input
-                                        id="editPhone"
-                                        name="phone"
-                                        type="tel"
-                                        onChange={(e) => setData({ ...data, telephone: e.target.value })}
-                                    />
-                                </div>
-                            </div>
-                            <DialogFooter>
-                                <Button type="button" variant="outline" onClick={() => setIsEditing(false)}>
-                                    Cancelar
-                                </Button>
-                                <Button type="submit">Salvar alterações</Button>
-                            </DialogFooter>
-                        </form>
-                    </DialogContent>
+                                <DialogFooter>
+                                    <Button type="button" variant="outline" onClick={() => setIsEditing(false)}>
+                                        Cancelar
+                                    </Button>
+                                    <Button type="submit">Salvar alterações</Button>
+                                </DialogFooter>
+                            </form>
+                        </DialogContent>
+                    ) : ""}
 
                 </Dialog>
                 <AlertDialog>

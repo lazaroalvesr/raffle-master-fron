@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }: Props) => {
                 }
             }
         }
-    }, []);
+    }, [user]);
 
     const updateUser = (userData: Partial<AuthUser['user']>) => {
         if (user) {

@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import { useAuth } from '@/app/hooks/useAuth';
+import { AxiosError } from 'axios';
 
 export default function FormularioLogin() {
   const { login } = useAuth();
@@ -28,19 +29,25 @@ export default function FormularioLogin() {
         setError('Login failed. Please check your credentials.');
       }
 
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
+    } catch (err: unknown) {
+      if (err instanceof AxiosError) {
+        // Check if the error is an AxiosError
+        setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
+      } else {
+        // Handle unexpected errors
+        setError('An unexpected error occurred. Please try again.');
+      }
       console.error('Error during login:', err);
     } finally {
       setLoading(false);
     }
   };
-  
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg shadow-xl items-center  h-[600px] overflow-hidden max-w-4xl w-full flex">
         <div className="w-1/2 hidden md:block">
-          <img
+          <Image
             src="/img/cara-sorrindo.jpg"
             alt="Bilhetes de rifa coloridos"
             className="w-full h-fit object-cover "

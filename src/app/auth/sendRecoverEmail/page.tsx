@@ -2,15 +2,14 @@
 
 import React, { useState } from 'react'
 import { Lock } from 'lucide-react'
-import axios from 'axios'
-import { useRouter } from "next/navigation";
+import axios, { AxiosError } from 'axios'
+import Link from 'next/link';
 
 export default function ResetSenha() {
     const [email, setEmail] = useState('')
     const [isSubmitted, setIsSubmitted] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
-    const router = useRouter();
     const [loading, setLoading] = useState(false)
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -19,15 +18,19 @@ export default function ResetSenha() {
         setLoading(true)
 
         try {
-            const response = await axios.post('https://raffle-master-back.vercel.app/auth/send-recover-email', {
+            await axios.post('https://raffle-master-back.vercel.app/auth/send-recover-email', {
                 email,
             })
 
             setSuccessMessage("Foi enviado um email com instruções para resetar sua senha!");
+            setIsSubmitted(true)
 
-
-        } catch (err: any) {
-            setError(err.response?.data?.message || 'Login failed. Please check your credentials.')
+        } catch (err: unknown) {
+            if (err instanceof AxiosError && err.response) {
+                setError(err.response.data?.message || 'Login failed. Please check your credentials.')
+            } else {
+                setError('An unexpected error occurred. Please try again later.')
+            }
             console.error('Error during login:', err)
         } finally {
             setLoading(false)
@@ -113,9 +116,9 @@ export default function ResetSenha() {
                         </div>
 
                         <div className="mt-6 text-center">
-                            <a href="/auth/login" className="font-medium text-indigo-600 hover:text-indigo-500">
+                            <Link href="/auth/login" className="font-medium text-indigo-600 hover:text-indigo-500">
                                 Voltar para o login
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>

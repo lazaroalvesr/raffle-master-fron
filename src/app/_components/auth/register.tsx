@@ -36,8 +36,12 @@ export default function FormularioCadastro() {
                 setError(response.message || "Failed to register");
             }
 
-        } catch (err) {
-            setError("An unexpected error occurred");
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                setError(err.message || "An unexpected error occurred");
+            } else {
+                setError("An unexpected error occurred");
+            }
         } finally {
             setLoading(false);
         }
@@ -46,7 +50,7 @@ export default function FormularioCadastro() {
         <div className="fixed m-auto w-full  flex bg-gradient-to-br h-full from-gray-100 to-gray-200 items-center justify-center p-4">
             <div className="bg-white rounded-lg shadow-xl overflow-hidden max-w-4xl w-full flex">
                 <div className="w-1/2 hidden md:block">
-                    <img
+                    <Image
                         src="/img/pessoa-sorrindo.jpeg"
                         alt="Bilhetes de rifa coloridos"
                         className="w-full h-full object-cover"

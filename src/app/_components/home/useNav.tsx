@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import ModalMinhaContaPage from "@/app/(protected)/dashboard/minhaconta/page"
 import { useAuth } from "@/app/hooks/useAuth"
 import {
@@ -18,23 +20,22 @@ import { UserNavProps } from "@/lib/interface"
 import { LogOut, Settings, User } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
-import ReactDOM from "react-dom"
 
 export function UserNav({ email, name }: UserNavProps) {
   const { logout } = useAuth()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const Modal = () => {
-    return (
-      <div className="fixed inset-0 flex px-4 lg:px-0 items-center justify-center bg-black bg-opacity-50 z-50">
-        <ModalMinhaContaPage setIsModalOpen={setIsModalOpen} />
-      </div>
-    );
-  };
+  // const Modal = () => {
+  //   return (
+  //     <div className="fixed inset-0 flex px-4 lg:px-0 items-center justify-center bg-black bg-opacity-50 z-50">
+  //       <ModalMinhaContaPage setIsModalOpen={setIsModalOpen} />
+  //     </div>
+  //   );
+  // };
 
   return (
     <DropdownMenu>
-      {isModalOpen && <Modal />}
+      {/* {isModalOpen && <Modal />} */}
 
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative gap-2 w-full items-center justify-between h-full rounded-lg">

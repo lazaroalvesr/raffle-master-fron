@@ -38,26 +38,26 @@ export default function AppSidebar() {
                         <SidebarMenu>
                             <SidebarMenuItem>
                                 <SidebarMenuButton asChild>
-                                    <a href="/">
+                                    <Link href="/">
                                         <Home className="h-4 w-4" />
                                         <span>Início</span>
-                                    </a>
+                                    </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                             <SidebarMenuItem>
                                 <SidebarMenuButton asChild>
-                                    <a href="/rifas">
+                                    <Link href="/rifas">
                                         <Ticket className="h-4 w-4" />
                                         <span>Rifas</span>
-                                    </a>
+                                    </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                             <SidebarMenuItem>
                                 <SidebarMenuButton asChild>
-                                    <a href="/como-funciona">
+                                    <Link href="/como-funciona">
                                         <HelpCircle className="h-4 w-4" />
                                         <span>Como Funciona?</span>
-                                    </a>
+                                    </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                         </SidebarMenu>

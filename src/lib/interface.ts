@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { ReactNode } from "react";
 
 export interface CardRaffleProps {

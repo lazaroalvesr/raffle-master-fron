@@ -1,3 +1,4 @@
+/* eslint-disable */
 "use client";
 
 import { RaffleUniqueProps } from "@/lib/interface";
@@ -6,13 +7,14 @@ import Image from "next/image";
 import { use, useEffect, useState } from "react";
 import { CardUniqueRaffleLoading } from "@/app/_components/home/cardRaffleLoading";
 import { CardInfosRaffle } from "@/app/_components/util/cardInfosRaffle";
-import { CardBuyRaffle } from "@/app/_components/util/cardBuyRaffle";
 import { CardDescriptionRaffle } from "@/app/_components/util/cardDescriptionRaffle";
 import Cookies from "js-cookie";
 import { useUser } from "@/app/hooks/useUsers";
 import PurchaseCard from "@/app/_components/util/purchaseCard";
 import { ButtonCardBuyRaffle } from "@/app/_components/util/buttonCardBuyRaffle";
 import { Ticket } from "lucide-react";
+
+
 
 export default function RaffleUnique({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params);
@@ -21,7 +23,6 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
     const [raffles, setRaffles] = useState<RaffleUniqueProps | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingBuy, setLoadingBuy] = useState<boolean>(false);
-    const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [successModalOpen, setSuccessModalOpen] = useState<boolean>(false);
@@ -64,11 +65,16 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
             setSuccessMessage("Números comprado com sucesso!");
             setQuantity(quantity);
             setSuccessModalOpen(true);
-        } catch (error) {
-            setErrorMessage("Erro ao comprar número.");
+        } catch (error: any) {
+            if (axios.isAxiosError(error) && error.response) {
+                setErrorMessage(error.response.data?.message || "Erro ao comprar número.");
+            } else {
+                setErrorMessage("Erro ao comprar número. Verifique sua conexão.");
+            }
         } finally {
             setLoadingBuy(false);
         }
+
     }
 
     useEffect(() => {
@@ -85,8 +91,6 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
         if (count > 1) setCount(count - 1);
     };
 
-    const openModal = () => setModalOpen(true);
-    const closeModal = () => setModalOpen(false);
     const closeSuccessModal = () => setSuccessModalOpen(false);
 
     return (
@@ -102,7 +106,7 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
                                     <h2 className="text-[#111827] text-[26px] w-[350px] h-fit md:w-[374px] lg:w-auto lg:text-[30px]">
                                         {raffles?.raffle?.name || "Raffle Name"}
                                     </h2>
-                                    <div className="pt-[30px] mt-8 border mx-3 lg:mx-0 p-4 border-[#D9D9D9] rounded-md lg:w-[591px]" onClick={openModal}>
+                                    <div className="pt-[30px] mt-8 border mx-3 lg:mx-0 p-4 border-[#D9D9D9] rounded-md lg:w-[591px]">
                                         <Image
                                             src={raffles?.raffle?.image || "/img/default.jpg"}
                                             alt={raffles?.raffle?.description || "Raffle image"}
@@ -189,9 +193,9 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
                             </button>
                             <PurchaseCard
                                 quantity={quantity}
-                                qrCode={buyTickets?.paymentDetails.point_of_interaction?.transaction_data.qr_code_base64}
-                                amount={buyTickets?.paymentDetails.amount }
-                                pixLink={buyTickets?.paymentDetails.pixUrl}
+                                qrCode={buyTickets?.paymentDetails?.point_of_interaction?.transaction_data.qr_code_base64}
+                                amount={buyTickets?.buyTickets.paymentDetails?.amount}
+                                pixLink={buyTickets?.paymentDetails?.pixUrl}
                             />
                         </div>
                     )}

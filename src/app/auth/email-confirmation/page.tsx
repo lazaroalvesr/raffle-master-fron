@@ -1,4 +1,5 @@
 import { CheckCircle } from "lucide-react";
+import Link from "next/link";
 
 export default function RaffleUnique() {
     return (
@@ -27,20 +28,20 @@ export default function RaffleUnique() {
                     </div>
 
                     <div className="mt-6 space-y-4">
-                        <a href="/auth/login" className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <Link href="/auth/login" className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                             <p>Fazer Login</p>
-                        </a>
-                        <a href="/" className="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        </Link>
+                        <Link href="/" className="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                             Ver Rifas Disponíveis
-                        </a>
+                        </Link>
                     </div>
 
                     <div className="mt-6">
                         <p className="text-center text-xs text-gray-500">
                             Se você tiver alguma dúvida ou precisar de ajuda, não hesite em{' '}
-                            <a href="/contato" className="text-indigo-600 hover:text-indigo-500">
+                            <Link href="/contato" className="text-indigo-600 hover:text-indigo-500">
                                 entrar em contato
-                            </a>{' '}
+                            </Link>{' '}
                             com nossa equipe de suporte.
                         </p>
                     </div>
