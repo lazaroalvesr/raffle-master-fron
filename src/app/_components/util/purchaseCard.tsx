@@ -7,7 +7,7 @@ import { PurchaseBuyCardProps } from '@/lib/interface'
 import Link from 'next/link'
 import Image from "next/image"
 
-export default function Component({ quantity, amount, pixLink, qrCode }: PurchaseBuyCardProps) {
+export default function Component({ quantity, amount, pixLink, qrCode, ticketPrice }: PurchaseBuyCardProps) {
 
     return (
         <Card className="w-full max-w-md mx-4 lg:mx-0">
@@ -18,14 +18,14 @@ export default function Component({ quantity, amount, pixLink, qrCode }: Purchas
                 </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-                <div className='items-center justify-center flex'>
+                <div className="relative p-4 bg-white flex items-center justify-center">
                     <Image
-                        src={qrCode}
-                        width={40}
-                        height={40}
-                        alt='QR CODE PAGAMENTO'
-                        className=' w-40 h-40'
+                        src={`data:image/png;base64,${qrCode}`}
+                        width={200}
+                        height={200}
+                        alt="Imagem QRCODE"
                     />
+
                 </div>
                 <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-500">Quantidade de bilhetes:</span>
@@ -33,7 +33,7 @@ export default function Component({ quantity, amount, pixLink, qrCode }: Purchas
                 </div>
                 <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-500">Valor unitário:</span>
-                    <span className="text-lg">R$ {amount.toFixed(2)}</span>
+                    <span className="text-lg">R$ {ticketPrice}</span>
                 </div>
                 <div className="flex justify-between items-center pt-2 border-t">
                     <span className="text-base font-semibold">Valor total:</span>

@@ -82,9 +82,10 @@ export enum Role {
 export interface PurchaseBuyCardProps {
     quantity: number
     pixLink: string | any
-    qrCode: string
-    amount: number
-}
+    qrCode: string | any
+    ticketPrice: string | any
+    amount: number 
+} 
 
 export interface TicketsProps {
     id: string,
