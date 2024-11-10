@@ -89,6 +89,7 @@ export async function middleware(request: NextRequest) {
             loginUrl.searchParams.set('returnUrl', request.nextUrl.pathname);
             const response = NextResponse.redirect(loginUrl);
             response.cookies.delete("token");
+            response.cookies.delete("user");
             return response;
         }
 
@@ -109,6 +110,7 @@ export async function middleware(request: NextRequest) {
         } else {
             const response = NextResponse.next();
             response.cookies.delete("token");
+            response.cookies.delete("user");
             return response;
         }
     }

@@ -18,7 +18,7 @@ export default function Header() {
 
     return (
         <header className="shadow-md bg-white">
-            <div className="max-w-8xl lg:mx-12  px-4 sm:px-6 lg:px-3">
+            <div className="max-w-8xl lg:mx-12 px-4 sm:px-6 lg:px-3">
                 <div className="flex lg:justify-around md:justify-around items-center py-4">
                     <div className=" flex-shrink-0">
                         <Link href="/" className="flex items-center">

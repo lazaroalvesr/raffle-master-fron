@@ -1,20 +1,35 @@
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { formatCurrency } from "@/lib/formatCurrency "
 import { formatDate } from "@/lib/formatDate"
 import { InfosCardProps } from "@/lib/interface"
+import { Calendar } from "lucide-react"
 
-export const CardInfosRaffle = ({ endDate, quantityNumbers, ticketPrice, title }: InfosCardProps) => {
+export const CardInfosRaffle = ({ endDate, quantityNumbers, ticketPrice }: InfosCardProps) => {
     return (
-        <div className="border border-[#D9D9D9] mx-3 lg:mx-0 lg:w-[480px] md:w-[380px] rounded-md">
-            <div className="border-b border-[#D9D9D9]  bg-[#F6F5F5] text-center py-[12px] rounded-t-md">
-                <p className="text-gray-800 text-[24px] font-medium ">{title}</p>
-            </div>
-            <div>
-                <ul className="px-8 py-8 flex flex-col gap-5">
-                    <li className="text-black gap-2 flex text-[22px] lg:text-[24px]"><span className="font-bold ">Valor Unitário:</span>{formatCurrency(ticketPrice)}</li>
-                    <li className="text-black gap-2 flex text-[22px] lg:text-[24px]"><span className="font-bold ">Limite de números:</span>{quantityNumbers}</li>
-                    <li className="text-black gap-2 flex text-[22px] lg:text-[24px]"><span className="font-bold ">Data do sorteio:</span>{formatDate(endDate)}</li>
-                </ul>
-            </div>
-        </div>
+        <Card>
+            <CardHeader className="border-b bg-muted bg-[#50c878] rounded-t-md text-gray-50">
+                <CardTitle className="text-xl">Informações da Rifa</CardTitle>
+            </CardHeader>
+            <CardContent className="pt-6">
+                <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                        <span className="text-muted-foreground">Valor Unitário:</span>
+                        <Badge variant="secondary" className="text-lg">{formatCurrency(ticketPrice)}</Badge>
+                    </div>
+                    <div className="flex justify-between items-center">
+                        <span className="text-muted-foreground">Limite de números:</span>
+                        <Badge variant="secondary" className="text-lg">{quantityNumbers}</Badge>
+                    </div>
+                    <div className="flex justify-between items-center">
+                        <span className="text-muted-foreground">Data do sorteio:</span>
+                        <div className="flex items-center gap-2">
+                            <Calendar className="h-4 w-4" />
+                            <span>{formatDate(endDate)}</span>
+                        </div>
+                    </div>
+                </div>
+            </CardContent>
+        </Card>
     )
 }

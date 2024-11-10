@@ -26,7 +26,7 @@ export const useAuth = () => {
 
     const register = async (creds: RegisterProps) => {
         try {
-            const response = await axios.post(`${API_URL}auth/create`, creds); // Corrected URL
+            const response = await axios.post(`${API_URL}auth/create`, creds);
             if (response.data) {
                 addUser(response.data);
             }

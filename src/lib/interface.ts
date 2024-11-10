@@ -38,9 +38,8 @@ export interface TicketProps {
 }
 
 export interface InfosCardProps {
-    title: string
     ticketPrice: string | any
-    quantityNumbers: number
+    quantityNumbers: number | any
     endDate: string | undefined
 }
 
