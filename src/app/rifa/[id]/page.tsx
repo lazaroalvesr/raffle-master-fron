@@ -40,7 +40,7 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
     async function getRaffle() {
         try {
             setLoading(true);
-            const response = await axios.get(`${BaseURL}/raffle/getById/${id}`);
+            const response = await axios.get(`${BaseURL}raffle/getById/${id}`);
             console.log(response)
             setRaffles(response.data);
         } catch (error) {
@@ -57,7 +57,7 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
 
         try {
             const response = await axios.post(
-                `${BaseURL}/tickets/buy`,
+                `${BaseURL}tickets/buy`,
                 { userId, email, raffleId: (await params).id, quantity },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
