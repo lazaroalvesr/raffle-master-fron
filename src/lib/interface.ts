@@ -194,13 +194,7 @@ export type TUser = {
 export interface AuthUser {
     token: string;
     user: TUser;
-    role: Role
 };
-
-export interface TAuthContext {
-    user: AuthUser | null;
-    setUser: (user: AuthUser | null) => void
-}
 
 export interface NavLinkProps {
     href: string

@@ -1,31 +1,35 @@
 "use client"
 
-import { createContext, useEffect, useState } from "react";
-import Cookies from "js-cookie";
-import { AuthUser, Props, TAuthContext } from "@/lib/interface";
+import { createContext, useEffect, useState } from "react"
+import Cookies from "js-cookie"
+import { AuthUser, Props, TAuthContext } from "@/lib/interface"
 
 export const AuthContext = createContext<TAuthContext>({
     user: null,
     setUser: () => { },
     updateUser: () => { }
-});
+})
 
 export const AuthProvider = ({ children }: Props) => {
-    const [user, setUser] = useState<AuthUser | null>(null);
+    const [user, setUser] = useState<AuthUser | null>(null)
 
     useEffect(() => {
         if (!user) {
-            const existingUser = Cookies.get("user");
-            
+            const existingUser = Cookies.get("user")
+
             if (existingUser) {
                 try {
-                    setUser(JSON.parse(existingUser));
-                } catch (e) {
-                    console.log(e)
+                    const parsedUser = JSON.parse(existingUser)
+                    setUser(parsedUser)
+                } catch (error: unknown) {
+                    if (error instanceof Error) {
+                        console.error('Erro ao parsear usuário:', error.message)
+                    }
+                    Cookies.remove("user")
                 }
             }
         }
-    }, [user]);
+    }, [user])
 
     const updateUser = (userData: Partial<AuthUser['user']>) => {
         if (user) {
@@ -35,19 +39,20 @@ export const AuthProvider = ({ children }: Props) => {
                     ...user.user,
                     ...userData
                 }
-            };
+            }
 
-            setUser(updatedUser);
+            console.log('Atualizando usuário:', updatedUser)
+            setUser(updatedUser)
             Cookies.set("user", JSON.stringify(updatedUser), {
                 expires: 7,
                 secure: true
-            });
+            })
         }
-    };
+    }
 
     return (
         <AuthContext.Provider value={{ user, setUser, updateUser }}>
             {children}
         </AuthContext.Provider>
-    );
+    )
 }
