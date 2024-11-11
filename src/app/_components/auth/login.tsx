@@ -26,16 +26,14 @@ export default function FormularioLogin() {
         setSuccessMessage("Login realizado com sucesso! Bem-vindo de volta!");
 
       } else {
-        setError('Login failed. Please check your credentials.');
+        setError('Falha no login. Por favor, verifique suas credenciais.');
       }
 
     } catch (err: unknown) {
       if (err instanceof AxiosError) {
-        // Check if the error is an AxiosError
-        setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
+        setError(err.response?.data?.message || 'Falha no login. Por favor, verifique suas credenciais.');
       } else {
-        // Handle unexpected errors
-        setError('An unexpected error occurred. Please try again.');
+        setError('Ocorreu um erro inesperado. Por favor, tente novamente.');
       }
       console.error('Error during login:', err);
     } finally {
@@ -45,7 +43,7 @@ export default function FormularioLogin() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-xl items-center  h-[600px] overflow-hidden max-w-4xl w-full flex">
+      <div className="bg-white rounded-lg shadow-xl items-center lg:h-[600px] overflow-hidden max-w-4xl w-full flex">
         <div className="w-1/2 hidden md:block">
           <Image
             src="/img/cara-sorrindo.jpg"

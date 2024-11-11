@@ -6,6 +6,7 @@ export interface CardRaffleProps {
     src: string
     href: string
     text: string
+    quantityNumbers: string;
 }
 
 export interface RaffleProps {
@@ -190,9 +191,10 @@ export type TUser = {
     Payment: Payment[]
 };
 
-export type AuthUser = {
+export interface AuthUser {
     token: string;
     user: TUser;
+    role: Role
 };
 
 export interface TAuthContext {
@@ -210,4 +212,23 @@ export interface dataProps{
     surname?: string
     email?: string,
     telephone?: string
+}
+
+export interface TAuthContext {
+    user: AuthUser | null;
+    setUser: (user: AuthUser | null) => void;
+    updateUser: (userData: Partial<AuthUser['user']>) => void;
+}
+
+export interface SidebarProps {
+    ativo: boolean
+    setAtivo: (ativo: boolean) => void
+}
+
+export interface Rafle{
+    id: string
+    image: string
+    name: string
+    quantityNumbers: string;
+
 }

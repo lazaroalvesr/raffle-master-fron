@@ -20,15 +20,15 @@ export const Table = ({ tickets = [] }: TableProps) => {
     };
 
     return (
-        <div className="border rounded-md flex">
-            <div className="lg:w-full w-[370px] md:w-full flex overflow-x-scroll lg:overflow-visible relative">
+        <div className="border rounded-md flex mx-3">
+            <div className="lg:w-[1110px] w-full md:w-[825px] flex overflow-x-scroll lg:overflow-visible relative">
                 <table className="w-full border-collapse">
                     <thead>
                         <tr className="text-[17px] bg-gray-100 h-12 lg:h-auto">
                             <th scope="col" className="px-4 lg:py-2 h-4 text-left">Nome</th>
                             <th scope="col" className="px-4 lg:py-2 h-4 text-left hidden lg:table-cell md:table-cell">Status Pagamento</th>
-                            <th scope="col" className="px-4 lg:py-2 h-4 text-left hidden lg:table-cell ">Data da compra</th>
-                            <th scope="col" className="px-4 lg:py-2 h-4 text-left hidden lg:table-cell ">Valor</th>
+                            <th scope="col" className="px-4 lg:py-2 h-4 text-left hidden lg:table-cell md:table-cell">Data da compra</th>
+                            <th scope="col" className="px-4 lg:py-2 h-4 text-left hidden lg:table-cell md:table-cell">Valor</th>
                             <th scope="col" className="px-4 lg:py-2 h-4 text-left ">Informações</th>
                         </tr>
                     </thead>

@@ -53,9 +53,9 @@ export default function MeusBilhetesPage() {
 
 
     return (
-        <section className="flex flex-col w-96 pt-[18px] md:w-full lg:w-full m-auto md:justify-start md:items-start md:mx-4 justify-center items-center">
-            <div className="flex w-[370px] lg:px-8 border-b mb-6 border-gray-200 lg:w-[1110px]">
-                <h1 className="text-[28px] font-medium text-start">Meus Bilhetes</h1>
+        <section className="flex flex-col w-full pt-[60px] lg:pt-[18px] md:w-full lg:w-full m-auto md:justify-start md:items-start justify-center items-center">
+            <div className="flex w-full pl-8 lg:pl-6 border-b md:pl-8 mb-6 border-gray-200 lg:w-full ">
+                <h1 className="text-[28px]  font-medium text-start">Meus Bilhetes</h1>
             </div>
             {loading ? (
                 <div className="flex justify-center items-center h-full">
@@ -65,7 +65,7 @@ export default function MeusBilhetesPage() {
             ) : error ? (
                 <div className="text-red-600">{error}</div>
             ) : (
-                <div>
+                <div className="lg:pl-4  w-full lg:w-fit">
                     <Table
                         tickets={data.map((item: UserRaffleProps) => ({
                             nameRafle: item.raffle.name,

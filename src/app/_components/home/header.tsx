@@ -7,6 +7,7 @@ import { useUser } from '../../hooks/useUsers'
 import { NavLinkHeader } from '../util/linkRedirectHeader'
 import { Clover } from 'lucide-react'
 import { ButtonRedirect } from '../util/buttonRedirect'
+import { DropDownNavUser } from '../util/dropDownNavUser'
 
 export default function Header() {
     const { user } = useUser()
@@ -61,14 +62,7 @@ export default function Header() {
                                 <div>
                                     <div className='flex gap-4 items-center'>
                                         <ButtonRedirect />
-                                        <div className={`flex cursor-pointer`}>
-                                            <Image
-                                                src="/img/icons/user.svg"
-                                                width={40}
-                                                height={40}
-                                                alt='Icone'
-                                            />
-                                        </div>
+                                        <DropDownNavUser />
                                     </div>
                                 </div>
                             ) : (
@@ -83,8 +77,8 @@ export default function Header() {
                             )}
                         </nav>
                     </nav>
-                </div>
-            </div>
-        </header>
+                </div >
+            </div >
+        </header >
     )
 }

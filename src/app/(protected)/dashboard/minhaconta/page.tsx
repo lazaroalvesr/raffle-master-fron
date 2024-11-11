@@ -16,8 +16,9 @@ import Image from "next/image"
 import Cookies from "js-cookie";
 import { dataProps } from "@/lib/interface"
 import { BaseURL } from "@/app/api/api"
+import { IoMdClose } from "react-icons/io"
 
-export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>> })  {
+export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
     const { user, updateUser } = useUser()
     const [isEditing, setIsEditing] = useState(false)
     const token = Cookies.get("token");
@@ -91,17 +92,10 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
         }
     };
 
-
-
     return (
-        <Card className="w-full z-50 max-w-md mx-auto">
-            <button onClick={() => setIsModalOpen(false)} className="absolute lg:right-[500px] md:right-[140px] md:top-[304px] md:rounded-l-none md:rounded-br-md right-4 items-center flex justify-center top-[30px] rounded-b-none lg:rounded-b-none lg:rounded-br-md rounded-md lg:rounded-l-none lg:top-[109px] lg:rounded-r-md w-12 h-12 bg-white">
-                <Image
-                    src="/img/icons/close.svg"
-                    width={35}
-                    height={35}
-                    alt="Close modal icon"
-                />
+        <Card className="w-full z-50 max-w-md mx-auto relative">
+            <button onClick={() => setIsModalOpen(false)} className="absolute lg:-right-[45px] md:-right-[42px] md:-top-[0.5px] md:rounded-l-none md:rounded-br-md right-0 items-center flex justify-center -top-[40px] rounded-b-none lg:rounded-b-none lg:rounded-br-md rounded-md lg:rounded-l-none lg:top-0 lg:rounded-r-md w-12 h-12 bg-white">
+                <IoMdClose size={30}/>
             </button>
             <CardHeader className="flex flex-col items-center space-y-4 pb-6 pt-8">
                 <Avatar className="h-24 w-24">
@@ -138,7 +132,7 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
                         <Button variant="outline" onClick={toggle}>Editar informações</Button>
                     </DialogTrigger>
                     {isOpen ? (
-                        <DialogContent className="w-[340px] rounded-md lg:w-full">
+                        <DialogContent className="w-[340px] md:w-full  lg:w-full">
                             <DialogHeader>
                                 <DialogTitle>Editar Perfil</DialogTitle>
                             </DialogHeader>

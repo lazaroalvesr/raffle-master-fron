@@ -5,8 +5,8 @@ import Link from "next/link"
 export const ButtonRedirect = () => {
     const { user } = useUser()
 
-    const roleUser = user?.user.role === Role.USER ? "/dashboard/meusbilhetes" : "/dashboard/minhaConta"
-    const text = user?.user.role === Role.USER ? "Meus Bilhetes" : "Minha Conta"
+    const roleUser = user?.role === Role.USER ? "/dashboard/meusbilhetes" : "/dashboard/minhaConta"
+    const text = user?.role === Role.USER ? "Meus Bilhetes" : "Minha Conta"
 
     return (
         <Link href={roleUser}>

@@ -18,16 +18,18 @@ import { UserNavProps } from "@/lib/interface"
 import { LogOut, Settings, User } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
+import { createPortal } from "react-dom"
 
 export function UserNav({ email, name }: UserNavProps) {
   const { logout } = useAuth()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const Modal = () => {
-    return (
+    return createPortal(
       <div className="fixed inset-0 flex px-4 lg:px-0 items-center justify-center bg-black bg-opacity-50 z-50">
         <ModalMinhaContaPage setIsModalOpen={setIsModalOpen} />
-      </div>
+      </div>,
+      document.body
     );
   };
 
@@ -36,7 +38,7 @@ export function UserNav({ email, name }: UserNavProps) {
       {isModalOpen && <Modal />}
 
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative gap-2 w-full items-center justify-between h-full rounded-lg">
+        <Button variant="ghost" className="relative hover:bg-gray-50 gap-2 w-full items-center justify-between h-full rounded-lg">
           <div className="flex items-center gap-2">
             <Avatar className="h-9 w-9 -scroll-ml-3 border">
               <AvatarFallback>{getInitials(name)}</AvatarFallback>

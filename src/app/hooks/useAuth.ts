@@ -1,4 +1,4 @@
-import { LoginProps, RegisterProps } from "@/lib/interface";
+import { LoginProps, RegisterProps, Role } from "@/lib/interface";
 import { useUser } from "./useUsers";
 import axios from 'axios';
 import Cookies from "js-cookie";
@@ -50,11 +50,11 @@ export const useAuth = () => {
                     expires: 7
                 });
             }
-            if (response.data.user.role === "USER") {
+            if (response.data.user.role === Role.USER) {
                 setTimeout(() => {
                     router.push("/dashboard/meusbilhetes");
                 }, 2000)
-            } else if (response.data.user.role === "ADM") {
+            } else if (response.data.user.role === Role.ADM) {
                 setTimeout(() => {
                     router.push("/dashboard/minhaconta");
                 }, 2000)
@@ -72,6 +72,7 @@ export const useAuth = () => {
     const logout = () => {
         removeUser();
         Cookies.remove("token")
+        router.push("/auth/login");
     };
 
     return { user, login, register, logout, refresh };

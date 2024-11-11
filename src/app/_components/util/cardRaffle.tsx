@@ -5,7 +5,9 @@ import { Check, Info, Ticket } from "lucide-react"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-export const CardRaffle = ({ src, text, href }: CardRaffleProps) => {
+
+export const CardRaffle = ({ src, text, href , quantityNumbers}: CardRaffleProps) => {
+    
     return (
         <Link href={href} className="w-full px-4">
             <Card className="w-full max-w-sm overflow-hidden transition-all duration-300 hover:shadow-lg">
@@ -30,7 +32,7 @@ export const CardRaffle = ({ src, text, href }: CardRaffleProps) => {
                     <div className="flex justify-between items-center gap-4 mb-6">
                         <div className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-full">
                             <Ticket className="w-4 h-4 text-gray-600" />
-                            <span className="font-medium text-gray-900">{100} números</span>
+                            <span className="font-medium text-gray-900">{quantityNumbers} números</span>
                         </div>
 
                         <div className="flex gap-2">

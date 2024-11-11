@@ -2,13 +2,7 @@
 
 import { createContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { AuthUser, Props } from "@/lib/interface";
-
-interface TAuthContext {
-    user: AuthUser | null;
-    setUser: (user: AuthUser | null) => void;
-    updateUser: (userData: Partial<AuthUser['user']>) => void;
-}
+import { AuthUser, Props, TAuthContext } from "@/lib/interface";
 
 export const AuthContext = createContext<TAuthContext>({
     user: null,

@@ -11,11 +11,13 @@ import Cookies from "js-cookie";
 import { useUser } from "@/app/hooks/useUsers";
 import PurchaseCard from "@/app/_components/util/purchaseCard";
 import { BaseURL } from "@/app/api/api";
-import { Minus, Plus, Ticket, X } from "lucide-react"
+import { Minus, Plus, Ticket } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { MensagemError } from "@/app/_components/util/mensagemError";
 import { MensagemSucess } from "@/app/_components/util/mensagemSucess";
+import { IoMdClose } from "react-icons/io";
+import { MensagemAviso } from "@/app/_components/util/mensagemAviso";
 
 export default function RaffleUnique({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params);
@@ -32,9 +34,10 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
     const [qrCode, setQrCode] = useState<String>("")
     const [show, setShow] = useState(false);
     const [count, setCount] = useState(1);
+    const [noticeMessage, setNoticeMessage] = useState<string | null>(null);
 
-    const userId = user?.user.id;
-    const email = user?.user.email;
+    const userId = user?.user?.id
+    const email = user?.user?.email;
     const maxTickets = Number(raffles?.raffle.quantityNumbers);
 
     async function getRaffle() {
@@ -51,6 +54,11 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
     }
 
     async function buyTicket(quantity: number) {
+        if (!user) {
+            setNoticeMessage("Você precisa estar logado para comprar numeros.");
+            return;
+        }
+
         setLoadingBuy(true);
         setErrorMessage("");
         setSuccessMessage("");
@@ -102,23 +110,7 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
 
     const closeSuccessModal = () => setSuccessModalOpen(false);
     const numbersSoldOut = Number(raffles?.availableTickets) === 0;
-    const [currentIndex, setCurrentIndex] = useState(0);
 
-    // Cria uma galeria com a mesma imagem replicada três vezes
-    const images = [
-        `${raffles?.raffle.image}`, // Imagem personalizada
-        "/img/veja.jpg", // Imagem personalizada
-    ];
-
-    // Função para avançar para a próxima imagem
-    const nextImage = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    };
-
-    // Função para voltar para a imagem anterior
-    const prevImage = () => {
-        setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
-    };
     return (
         <section className="max-w-6xl flex justify-center items-center m-auto flex-col lg:pb-32 pb-12">
             {loading ? (
@@ -236,6 +228,7 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
 
                             </CardFooter>
                             <div className="absolute  w-96 -bottom-14">
+                                {noticeMessage && <MensagemAviso text={noticeMessage || ""} />}
                                 {errorMessage && <MensagemError text={errorMessage || ""} />}
                                 {successMessage && <MensagemSucess text={successMessage || ""} />}
                             </div>
@@ -269,33 +262,17 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
                                 className="relative lg:w-[650px] mx-4 flex flex-col items-center p-4 bg-white rounded-tr-none rounded-lg shadow-lg"
                                 onClick={(e) => e.stopPropagation()}>
                                 <Image
-                                    src={images[currentIndex]}
+                                    src={raffles?.raffle.image || ""}
                                     width={400}
                                     height={400}
                                     alt="Imagem Ampliada"
                                     className="rounded-md w-full h-full object-contain"
                                 />
-
-                                <div className="absolute flex justify-between w-full px-4 top-1/2 transform -translate-y-1/2">
-                                    <button onClick={prevImage} className="text-2xl text-white bg-gray-700 rounded-full p-2 hover:bg-gray-800">
-                                        ‹
-                                    </button>
-                                    <button onClick={nextImage} className="text-2xl text-white bg-gray-700 rounded-full p-2 hover:bg-gray-800">
-                                        ›
-                                    </button>
-                                </div>
-
                                 <button
                                     onClick={() => setShow(false)}
-                                    className="absolute lg:-top-0 -top-11 rounded-tl-md lg:rounded-tl-none right-0 lg:-right-12 text-2xl bg-white p-2 rounded-tr-md lg:rounded-br-md text-gray-600 hover:text-gray-800"
+                                    className="absolute lg:-top-0 -top-11 rounded-tl-md lg:rounded-tl-none right-0 lg:-right-10 text-2xl bg-white p-2 rounded-tr-md lg:rounded-br-md text-gray-600 hover:text-gray-800"
                                 >
-                                    <Image
-                                        src={"/img/icons/X.svg"}
-                                        width={32}
-                                        height={32}
-                                        alt="Imagem Ampliada"
-                                        className="rounded-md w-8 h-full object-contain"
-                                    />
+                                    <IoMdClose />
                                 </button>
                             </div>
                         </div>

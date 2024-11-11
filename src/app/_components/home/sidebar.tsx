@@ -1,111 +1,84 @@
-'use client'
-import * as React from "react"
-import { Clover, Home, Ticket, HelpCircle, Gift } from "lucide-react"
+import React from 'react'
+import Link from 'next/link'
+import { Clover, Home, Ticket, HelpCircle, Gift, Headphones } from 'lucide-react'
+import { IoMdClose } from 'react-icons/io'
+import { NavLink } from '../util/linkRedirect'
+import { UserNav } from './useNav'
+import { useUser } from '@/app/hooks/useUsers'
+import { SidebarProps } from '@/lib/interface'
 
-import {
-    Sidebar,
-    SidebarContent,
-    SidebarGroup,
-    SidebarGroupContent,
-    SidebarGroupLabel,
-    SidebarHeader,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-    SidebarSeparator,
-} from "@/components/ui/sidebar"
-import { UserNav } from "./useNav"
-import { useUser } from "@/app/hooks/useUsers"
-import Link from "next/link"
-import { NavLink } from "../util/linkRedirect"
-
-export default function AppSidebar() {
+export default function Sidebar({ ativo, setAtivo }: SidebarProps) {
     const { user } = useUser()
 
     return (
-        <Sidebar>
-            <SidebarContent className="sr-only">Menu de navegação</SidebarContent>
-            <SidebarHeader className="border-b border-border p-4">
+        <aside className={`flex flex-col fixed inset-y-0 left-0 z-50 w-64 border-r border-gray-200 bg-white transition-all duration-300 ease-in-out lg:relative lg:translate-x-0 ${ativo ? "translate-x-0" : "-translate-x-full"}`}>
+            <div className="flex items-center justify-between border-b border-gray-100 p-4">
                 <div className="flex items-center gap-2">
                     <Clover className="h-6 w-6 text-green-500" />
                     <span className="text-xl font-bold">Rifa Flow</span>
                 </div>
-            </SidebarHeader>
-            <SidebarContent>
-                <SidebarGroup>
-                    <SidebarGroupLabel>Menu Principal</SidebarGroupLabel>
-                    <SidebarGroupContent>
-                        <SidebarMenu>
-                            <SidebarMenuItem>
-                                <SidebarMenuButton asChild>
-                                    <Link href="/">
-                                        <Home className="h-4 w-4" />
-                                        <span>Início</span>
-                                    </Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                            <SidebarMenuItem>
-                                <SidebarMenuButton asChild>
-                                    <Link href="/rifas">
-                                        <Ticket className="h-4 w-4" />
-                                        <span>Rifas</span>
-                                    </Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                            <SidebarMenuItem>
-                                <SidebarMenuButton asChild>
-                                    <Link href="/como-funciona">
-                                        <HelpCircle className="h-4 w-4" />
-                                        <span>Como Funciona?</span>
-                                    </Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                        </SidebarMenu>
-                    </SidebarGroupContent>
-                </SidebarGroup>
+                <button className="lg:hidden" onClick={() => setAtivo(!ativo)}>
+                    <IoMdClose size={30} />
+                </button>
+            </div>
 
-                <SidebarGroup>
-                    <SidebarGroupLabel>Meus Bilhetes</SidebarGroupLabel>
-                    <SidebarGroupContent>
-                        <SidebarMenu>
-                            <SidebarMenuItem>
-                                <SidebarMenuButton asChild>
-                                    <NavLink href="/dashboard/meusbilhetes">
-                                        <Ticket className="h-4 w-4" />
-                                        <span>Bilhetes</span>
-                                    </NavLink>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                            <SidebarMenuItem>
-                                <SidebarMenuButton asChild>
-                                    <Link href="/bilhetes/ativos">
-                                        <Gift className="h-4 w-4" />
-                                        <span>Minhas Rifas</span>
-                                    </Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                            <SidebarMenuItem>
-                                <SidebarMenuButton asChild>
-                                    <Link href="/como-funciona">
-                                        <HelpCircle className="h-4 w-4" />
-                                        <span>Suporte</span>
-                                    </Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                        </SidebarMenu>
-                    </SidebarGroupContent>
-                </SidebarGroup>
-                <div className="flex-1" />
-                <SidebarSeparator />
-                <SidebarGroup>
-                    <SidebarGroupContent className="hover:bg-sidebar-accent cursor-pointer py-2 rounded-lg">
-                        <UserNav
-                            name={user?.user.name}
-                            email={user?.user.email}
-                        />
-                    </SidebarGroupContent>
-                </SidebarGroup>
-            </SidebarContent>
-        </Sidebar>
+            <div className="flex flex-col flex-grow overflow-y-auto">
+                <div className="flex-grow p-4">
+                    <div className="space-y-4">
+                        <div>
+                            <h2 className="mb-2 text-sm font-medium text-gray-500">Menu Principal</h2>
+                            <nav className="space-y-1">
+                                <Link
+                                    href="/"
+                                    className="flex items-center gap-2 rounded-lg px-3 py-2 transition-colors hover:bg-gray-50"
+                                >
+                                    <Home className="h-5 w-5" />
+                                    Início
+                                </Link>
+                                <Link
+                                    href="/rifas"
+                                    className="flex items-center gap-2 rounded-lg px-3 py-2 transition-colors hover:bg-gray-50"
+                                >
+                                    <Ticket className="h-5 w-5" />
+                                    Rifas
+                                </Link>
+                                <Link
+                                    href="/como-funciona"
+                                    className="flex items-center gap-2 rounded-lg px-3 py-2 transition-colors hover:bg-gray-50"
+                                >
+                                    <HelpCircle className="h-5 w-5" />
+                                    Como Funciona?
+                                </Link>
+                            </nav>
+                        </div>
+
+                        <div>
+                            <h2 className="mb-2 text-sm font-medium text-gray-500">Meus Bilhetes</h2>
+                            <nav className="space-y-1">
+                                <NavLink href="/dashboard/meusbilhetes">
+                                    <Ticket className="h-5 w-5" />
+                                    <span>Bilhetes</span>
+                                </NavLink>
+                                <NavLink href="/dashboard/minhasrifas">
+                                    <Gift className="h-5 w-5" />
+                                    <span>Minhas Rifas</span>
+                                </NavLink>
+                                <Link
+                                    href="/como-funciona"
+                                    className="flex items-center gap-2 rounded-lg px-3 py-2 transition-colors hover:bg-gray-50"
+                                >
+                                    <Headphones className="h-5 w-5" />
+                                    Suporte
+                                </Link>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="border-t border-gray-200 p-4 mt-auto">
+                <UserNav name={user?.user?.name} email={user?.user?.email} />
+            </div>
+        </aside>
     )
 }
