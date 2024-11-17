@@ -4,8 +4,9 @@ import { useUser } from "@/app/hooks/useUsers";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { UserRaffleProps } from "@/lib/interface";
-import { Table } from "@/app/_components/util/table";
+import { TableMeusBilhetesUser } from "@/app/_components/util/tableMeusBilhetesUser";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export default function MeusBilhetesPage() {
     const { user } = useUser();
@@ -14,7 +15,6 @@ export default function MeusBilhetesPage() {
     const [data, setData] = useState<UserRaffleProps[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-
     useEffect(() => {
         const fetchData = async () => {
             if (!user?.user?.id) {
@@ -25,21 +25,17 @@ export default function MeusBilhetesPage() {
             try {
                 setLoading(true);
                 setError(null);
-                const response = await fetch(
+
+                const response = await axios.get(
                     `https://raffle-master-back.vercel.app/payment/getById/${user.user.id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
-                        }
+                        },
                     }
                 );
 
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-
-                const result = await response.json();
-                setData(result);
+                setData(response.data);
             } catch (e) {
                 console.error("Error fetching data:", e);
                 setError("Failed to fetch data. Please try again later.");
@@ -48,25 +44,26 @@ export default function MeusBilhetesPage() {
             }
         };
 
-        fetchData();
+        if (user?.user?.id) {
+            fetchData();
+        }
     }, [user, user?.user.id, token, router]);
 
-
     return (
-        <section className="flex flex-col w-full pt-[60px] lg:pt-[18px] md:w-full lg:w-full m-auto md:justify-start md:items-start justify-center items-center">
+        <section className="flex flex-col w-full pt-[60px] lg:pt-[16px] md:w-full lg:w-full m-auto md:justify-start md:items-start justify-center items-center">
             <div className="flex w-full pl-8 lg:pl-6 border-b md:pl-8 mb-6 border-gray-200 lg:w-full ">
-                <h1 className="text-[28px]  font-medium text-start">Meus Bilhetes</h1>
+                <h1 className="mb-2 text-3xl font-bold tracking-tight">Meus Números da Sorte</h1>
             </div>
             {loading ? (
-                <div className="flex justify-center items-center h-full">
+                <div className="flex justify-center items-center h-full lg:ml-12 md:ml-12">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
                     <p className="ml-4 text-lg">Loading...</p>
                 </div>
             ) : error ? (
                 <div className="text-red-600">{error}</div>
             ) : (
-                <div className="lg:pl-4  w-full lg:w-fit">
-                    <Table
+                <div className="px-4 w-full">
+                    <TableMeusBilhetesUser
                         tickets={data.map((item: UserRaffleProps) => ({
                             nameRafle: item.raffle.name,
                             infosName: item.raffle.name,

@@ -1,6 +1,6 @@
+import { formatCurrency } from "@/app/hooks/formatCurrency "
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { formatCurrency } from "@/lib/formatCurrency "
 import { formatDate } from "@/lib/formatDate"
 import { InfosCardProps } from "@/lib/interface"
 import { Calendar } from "lucide-react"

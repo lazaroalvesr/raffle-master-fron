@@ -3,12 +3,13 @@ import { InfoPaymentText } from '@/lib/infoPaymentText';
 export const StatusPayment = ({ infoPayment }: { infoPayment: string | undefined }) => {
     return (
         <button
-            className={`text-white w-40 cursor-auto rounded-[50px] text-center text-lg ${infoPayment === "pending" ? "bg-orange-500" :
-                infoPayment === "approved" ? "bg-green-500" :
-                    infoPayment === "cancelled" ? "bg-red-500" :
-                        ""
-                }`}>
-            <InfoPaymentText infoPayment={infoPayment || ""} />
-        </button>
+            className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${infoPayment === 'approved'
+                    ? 'bg-green-100 text-green-700'
+                    : infoPayment === 'pending'
+                        ? 'bg-yellow-100 text-yellow-700'
+                        : 'bg-red-100 text-red-700'
+                }` }>
+                <InfoPaymentText infoPayment={infoPayment || ""} />
+        </button >
     );
 };

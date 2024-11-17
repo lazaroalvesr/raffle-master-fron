@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 'use client'
 
 import { useEffect, useState } from "react"
@@ -12,15 +11,18 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogT
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
 import { useUser } from "@/app/hooks/useUsers"
 import { getInitials } from "@/lib/getInitials"
-import Image from "next/image"
 import Cookies from "js-cookie";
-import { dataProps } from "@/lib/interface"
+import { dataProps, Role } from "@/lib/interface"
 import { BaseURL } from "@/app/api/api"
 import { IoMdClose } from "react-icons/io"
+import { Crown } from "lucide-react"
+import axios from "axios"
 
 export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
     const { user, updateUser } = useUser()
-    const [isEditing, setIsEditing] = useState(false)
+    const isAdmin = user?.user.role === Role.ADM 
+
+    const [isEditing, setIsEditing] = useState<boolean>(false)
     const token = Cookies.get("token");
     const [data, setData] = useState<dataProps>({
         name: "",
@@ -28,50 +30,89 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
         email: "",
         telephone: ""
     })
-    const [isOpen, setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false)
+    const [error, setError] = useState<string | null>(null)
+    const [success, setSuccess] = useState<string | null>(null)
 
     function toggle() {
         setIsOpen(true)
     }
 
+    const formatTelephone = (value: string | undefined) => {
+        if (!value) return "";
+
+        value = value.replace(/\D/g, '');
+        value = value.slice(0, 11);
+        value = value.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+        return value;
+    };
+
+    const handleTelephoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setData((prevData) => ({
+            ...prevData,
+            telephone: formatTelephone(e.target.value)
+        }));
+    };
+
     useEffect(() => {
-        if (user?.user) {
+        if (user) {
             setData({
-                name: user.user.name,
-                surname: user.user.surname,
-                email: user.user.email,
-                telephone: user.user.telephone,
+                name: data.name,
+                surname: data.surname,
+                email: data.email,
+                telephone: data.telephone,
             });
         }
     }, [user]);
 
+    const updateField = (field: keyof dataProps, value: string) => {
+        const sanitizedValue = value.trim();
+        setData((prev) => ({
+            ...prev,
+            [field]: sanitizedValue,
+            ...(field === 'telephone' ? { telephone: formatTelephone(value) } : {}),
+        }));
+    };
 
     const handleSubmit = async (data: dataProps, e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!user?.user?.id) {
-            console.log("User ID is not available.");
+        setError(null);
+        setSuccess(null);
+        setLoading(true);
+
+        if (!user?.user.id) {
+            setError("User ID is not available.");
+            setLoading(false);
+            return;
+        }
+
+        const isAnyFieldFilled =
+            data.name !== data.name ||
+            data.surname !== data.surname ||
+            data.email !== data.email ||
+            data.telephone !== data.telephone;
+
+        if (!isAnyFieldFilled) {
+            setError("Preencha pelo menos um campo para atualizar as informações.");
+            setLoading(false);
             return;
         }
 
         try {
-            const response = await fetch(
+            const response = await axios.patch(
                 `${BaseURL}auth/editUser/${user.user.id}`,
+                data,
                 {
-                    method: "PATCH",
                     headers: {
-                        "Authorization": `Bearer ${token}`,
+                        Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(data),
                 }
             );
 
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-
-            const result = await response.json();
+            const result = response.data;
 
             if (result.token) {
                 Cookies.set('token', result.token);
@@ -85,26 +126,29 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
             });
 
             setIsEditing(false);
-            console.log("User data updated successfully");
-
+            setSuccess("Informações atualizadas com sucesso!");
         } catch (e) {
-            console.error("Error fetching data:", e);
+            console.error("Erro ao buscar dados:", e);
+            setError("Erro ao atualizar as informações. Tente novamente.");
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
         <Card className="w-full z-50 max-w-md mx-auto relative">
             <button onClick={() => setIsModalOpen(false)} className="absolute lg:-right-[45px] md:-right-[42px] md:-top-[0.5px] md:rounded-l-none md:rounded-br-md right-0 items-center flex justify-center -top-[40px] rounded-b-none lg:rounded-b-none lg:rounded-br-md rounded-md lg:rounded-l-none lg:top-0 lg:rounded-r-md w-12 h-12 bg-white">
-                <IoMdClose size={30}/>
+                <IoMdClose size={30}  />
             </button>
-            <CardHeader className="flex flex-col items-center space-y-4 pb-6 pt-8">
+            <CardHeader className="relative flex flex-col items-center space-y-4 pb-6 pt-8">
+                {isAdmin && (
+                    <div className="absolute top-6 left-1/2 -translate-x-1/2 transform">
+                        <Crown className="h-8 w-8 text-yellow-400" />
+                    </div>
+                )}
                 <Avatar className="h-24 w-24">
-                    <AvatarFallback>{getInitials(user?.user.name)}</AvatarFallback>
+                    <AvatarFallback>{getInitials(user?.user?.name || "")}</AvatarFallback>
                 </Avatar>
-                <div className="text-center">
-                    <h2 className="text-2xl font-bold"></h2>
-                    <p className="text-sm text-muted-foreground"></p>
-                </div>
             </CardHeader>
             <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
@@ -123,7 +167,7 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="phone">Telefone</Label>
-                    <Input id="phone" value={user?.user.telephone} type="tel" readOnly />
+                    <Input id="phone" value={formatTelephone(user?.user.telephone)} type="tel" readOnly />
                 </div>
             </CardContent>
             <CardFooter className="flex justify-between">
@@ -131,8 +175,8 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
                     <DialogTrigger asChild>
                         <Button variant="outline" onClick={toggle}>Editar informações</Button>
                     </DialogTrigger>
-                    {isOpen ? (
-                        <DialogContent className="w-[340px] md:w-full  lg:w-full">
+                    {isOpen && (
+                        <DialogContent className="w-fit px-4 md:w-full">
                             <DialogHeader>
                                 <DialogTitle>Editar Perfil</DialogTitle>
                             </DialogHeader>
@@ -145,7 +189,9 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
                                                 id="editFirstName"
                                                 name="firstName"
                                                 type="text"
-                                                onChange={(e) => setData({ ...data, name: e.target.value })}
+                                                className="w-32 lg:w-full md:w-full"
+                                                disabled={loading}
+                                                onChange={(e) => updateField("name", e.target.value)}
                                             />
                                         </div>
                                         <div className="space-y-2">
@@ -154,7 +200,9 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
                                                 id="editLastName"
                                                 name="lastName"
                                                 type="text"
-                                                onChange={(e) => setData({ ...data, surname: e.target.value })}
+                                                className="w-32 lg:w-full md:w-full"
+                                                disabled={loading}
+                                                onChange={(e) => updateField("surname", e.target.value)}
                                             />
                                         </div>
                                     </div>
@@ -164,29 +212,53 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
                                             id="editEmail"
                                             name="email"
                                             type="email"
-                                            onChange={(e) => setData({ ...data, email: e.target.value })}
+                                            className="w-72 lg:w-full md:w-full"
+                                            disabled={loading}
+                                            onChange={(e) => updateField("email", e.target.value)}
                                         />
                                     </div>
                                     <div className="space-y-2">
                                         <Label htmlFor="editPhone">Telefone</Label>
                                         <Input
                                             id="editPhone"
-                                            name="phone"
+                                            name="telephone"
                                             type="tel"
-                                            onChange={(e) => setData({ ...data, telephone: e.target.value })}
+                                            className="w-72 lg:w-full md:w-full"
+                                            disabled={loading}
+                                            value={data.telephone}
+                                            onChange={handleTelephoneChange}
                                         />
                                     </div>
+                                    <div className="flex items-center  flex-col justify-between">
+                                        <div className="py-4">
+                                            {error && (
+                                                <div className=" text-sm lg:text-base text-red-700 rounded-md">
+                                                    {error}
+                                                </div>
+                                            )}
+                                            {success && (
+                                                <div className=" text-sm lg:text-base text-green-700 rounded-md">
+                                                    {success}
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <DialogFooter className="w-full lg:gap-32 gap-6">
+                                            <Button
+                                                disabled={loading}
+                                                type="button" variant="outline" onClick={() => setIsEditing(false)}>
+                                                Cancelar
+                                            </Button>
+                                            <Button disabled={loading} type="submit" className="w-full">
+                                                {loading ? "Salvando..." : "Salvar alterações"}
+                                            </Button>
+
+                                        </DialogFooter>
+                                    </div>
                                 </div>
-                                <DialogFooter>
-                                    <Button type="button" variant="outline" onClick={() => setIsEditing(false)}>
-                                        Cancelar
-                                    </Button>
-                                    <Button type="submit">Salvar alterações</Button>
-                                </DialogFooter>
                             </form>
                         </DialogContent>
-                    ) : ""}
-
+                    )}
                 </Dialog>
                 <AlertDialog>
                     <AlertDialogTrigger asChild>
@@ -210,5 +282,5 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
                 </AlertDialog>
             </CardFooter>
         </Card>
-    )
+    );
 }

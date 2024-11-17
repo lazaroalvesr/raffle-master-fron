@@ -3,8 +3,8 @@ import Link from "next/link"
 
 export default function Footer() {
     return (
-        <footer className="bg-background border-t">
-            <div className="max-w-8xl lg:mx-20 px-4  lg:px-0 flex flex-col  md:mx-6 py-6">
+        <footer className="bg-background border-t mt-12 lg:mt-0 md:mt-0">
+            <div className="max-w-8xl lg:mx-20 px-4  lg:px-0 flex flex-col  md:mx-6 py-6 ">
                 <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                     <div className="flex items-center gap-2">
                         <Clover className="h-8 w-8 text-green-500" />
@@ -55,7 +55,7 @@ export default function Footer() {
                         </Link>
                     </div>
                 </div>
-                <div className="mt-4 text-center text-sm text-muted-foreground">
+                <div className="mt-4 text-center text-sm text-muted-foreground md:ml-[55px] lg:ml-[55px]">
                     © 2024 Rifa Flow. Todos os direitos reservados.
                 </div>
             </div>

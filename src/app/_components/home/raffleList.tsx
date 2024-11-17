@@ -1,24 +1,36 @@
-import { BaseURL } from "@/app/api/api";
+"use client"
+
+import { useEffect, useState } from "react";
 import { CardRaffle } from "../util/cardRaffle";
 import { Rafle } from "@/lib/interface";
+import getRaffles from "../../hooks/getRaffle";
+import Loading from "../util/loadingCard";
 
-async function getRaffles() {
-    const res = await fetch(`${BaseURL}raffle/getAll`, {
-        headers: { accept: 'application/json' },
-    });
+export function RaffleList() {
+    const [raffles, setRaffles] = useState<Rafle[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
-    if (!res.ok) {
-        throw new Error('Failed to fetch data');
-    }
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                setLoading(true);
+                const data = await getRaffles();
+                setRaffles(data);
+            } catch (err) {
+                setError("Failed to fetch data");
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchData();
+    }, []);
 
-    return res.json();
-}
-
-export async function RaffleList() {
-    const raffles = await getRaffles();
+    if (loading) return <Loading />;
+    if (error) return <div>{error}</div>;
 
     return (
-        <div className="md:ml-4 pt-[25px] grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 lg:ml-0  gap-[30px] m-auto items-center justify-center lg:justify-normal md:justify-normal">
+        <div className="md:ml-4 pt-[25px] grid grid-cols-1 gap-y-8 lg:grid-cols-3 md:grid-cols-2 lg:ml-0 m-auto items-center justify-center lg:justify-normal md:justify-normal">
             {raffles.map((item: Rafle) => (
                 <CardRaffle
                     key={item.id}

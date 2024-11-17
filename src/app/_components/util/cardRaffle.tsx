@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge"
 export const CardRaffle = ({ src, text, href , quantityNumbers}: CardRaffleProps) => {
     
     return (
-        <Link href={href} className="w-full px-4">
+        <Link href={href} className="w-full px-4 relative">
             <Card className="w-full max-w-sm overflow-hidden transition-all duration-300 hover:shadow-lg">
                 <div className="relative aspect-[16/9] overflow-hidden">
                     <Image
@@ -22,13 +22,13 @@ export const CardRaffle = ({ src, text, href , quantityNumbers}: CardRaffleProps
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 </div>
 
-                <CardHeader className="relative z-10 -mt-14 pb-4">
+                <CardHeader className="absolute z-10 top-28 h-fit w-80">
                     <CardTitle className="text-2xl font-bold text-white drop-shadow-lg">
                         {text}
                     </CardTitle>
                 </CardHeader>
 
-                <CardContent>
+                <CardContent className="mt-5">
                     <div className="flex justify-between items-center gap-4 mb-6">
                         <div className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-full">
                             <Ticket className="w-4 h-4 text-gray-600" />

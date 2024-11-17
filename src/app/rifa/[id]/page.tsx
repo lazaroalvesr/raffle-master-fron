@@ -18,6 +18,7 @@ import { MensagemError } from "@/app/_components/util/mensagemError";
 import { MensagemSucess } from "@/app/_components/util/mensagemSucess";
 import { IoMdClose } from "react-icons/io";
 import { MensagemAviso } from "@/app/_components/util/mensagemAviso";
+import RenderHTML from "@/app/_components/util/renderTiptapContent ";
 
 export default function RaffleUnique({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params);
@@ -136,15 +137,8 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
                                 </div>
                                 <div className="space-y-4">
                                     <h3 className="text-lg font-semibold">O que você pode ganhar:</h3>
-                                    <div className="grid gap-3">
-                                        <div className="flex items-center gap-3">
-                                            <span className="text-2xl">🥩</span>
-                                            <span>7 peças suculentas de picanha</span>
-                                        </div>
-                                        <div className="flex items-center gap-3">
-                                            <span className="text-2xl">🍺</span>
-                                            <span>4 chopes gelados</span>
-                                        </div>
+                                    <div>
+                                        <RenderHTML content={raffles?.raffle.description} />
                                     </div>
                                 </div>
                             </CardContent>

@@ -18,6 +18,18 @@ export default function FormularioCadastro() {
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const router = useRouter();
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
+   
+    const formatTelephone = (value: string) => {
+        value = value.replace(/\D/g, '');
+        value = value.slice(0, 11);
+        value = value.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+        return value;
+    };
+    
+    const handleTelephoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const formattedValue = formatTelephone(e.target.value);
+        setTelephone(formattedValue);
+    };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -26,7 +38,7 @@ export default function FormularioCadastro() {
         setError(null);
 
         try {
-            const response = await register({ name, email, telephone, password , surname});
+            const response = await register({ name, email, telephone, password, surname });
 
             if (response.success) {
                 setSuccessMessage("Conta criada com sucesso! Você pode fazer login agora.");
@@ -154,9 +166,10 @@ export default function FormularioCadastro() {
                                 required
                                 disabled={loading}
                                 value={telephone}
-                                onChange={(e) => setTelephone(e.target.value)}
+                                maxLength={15}
+                                onChange={handleTelephoneChange}
                                 className="mt-1 block w-full px-3 py-2 text-gray-800 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
-                              focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                                  focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                                 placeholder="(11) 98765-4321"
                             />
                         </div>

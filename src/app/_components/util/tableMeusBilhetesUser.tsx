@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { formatDate } from "@/lib/formatDate";
 import { StatusPayment } from "./statusPayment";
-import PaymentInfoCard from "./card";
-import { formatCurrency } from "@/lib/formatCurrency ";
+import PaymentInfoCard from "./paymentInfoCard";
 import { TableProps, Ticket } from "@/lib/interface";
+import { formatCurrency } from "@/app/hooks/formatCurrency ";
 
-export const Table = ({ tickets = [] }: TableProps) => {
+export const TableMeusBilhetesUser = ({ tickets = [] }: TableProps) => {
     const [show, setShow] = useState(false);
     const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
 
@@ -20,11 +20,11 @@ export const Table = ({ tickets = [] }: TableProps) => {
     };
 
     return (
-        <div className="border rounded-md flex mx-3">
-            <div className="lg:w-[1110px] w-full md:w-[825px] flex overflow-x-scroll lg:overflow-visible relative">
-                <table className="w-full border-collapse">
-                    <thead>
-                        <tr className="text-[17px] bg-gray-100 h-12 lg:h-auto">
+        <div className="border rounded-md flex mx-3 overflow-y-auto custom-scrollbar lg:h-[580px]">
+            <div className="w-full flex overflow-x-scroll lg:overflow-visible relative">
+                <table className="w-full border-collapse ">
+                    <thead className="h-12 bg-gray-100 flex items-center">
+                        <tr className="text-[17px] w-full justify-between  flex pb-2 lg:pb-6 ">
                             <th scope="col" className="px-4 lg:py-2 h-4 text-left">Nome</th>
                             <th scope="col" className="px-4 lg:py-2 h-4 text-left hidden lg:table-cell md:table-cell">Status Pagamento</th>
                             <th scope="col" className="px-4 lg:py-2 h-4 text-left hidden lg:table-cell md:table-cell">Data da compra</th>

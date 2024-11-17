@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
 export const useAuth = () => {
-    const API_URL = "https://raffle-master-back.vercel.app/"
+    const API_URL = "http://localhost:3001/"
     const { user, addUser, removeUser } = useUser();
     const router = useRouter();
 
@@ -56,7 +56,7 @@ export const useAuth = () => {
                 }, 2000)
             } else if (response.data.user.role === Role.ADM) {
                 setTimeout(() => {
-                    router.push("/dashboard/minhaconta");
+                    router.push("/dashboard/gerenciar-rifas");
                 }, 2000)
             }
             return { success: true, data: response.data };

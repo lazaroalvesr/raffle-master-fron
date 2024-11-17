@@ -8,3 +8,17 @@ export const formatDate = (dateString: string | any): string => {
 
     return `${day}/${month}/${year}`;
 };
+
+
+export const formatDateWithMonthName = (dateString: string | any): string => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const year = date.getFullYear();
+    const months = [
+        "janeiro", "fevereiro", "março", "abril", "maio", "junho",
+        "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"
+    ];
+    const month = months[date.getMonth()];
+
+    return `${day} de ${month}, ${year}`;
+};

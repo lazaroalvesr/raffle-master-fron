@@ -1,13 +1,13 @@
 /* eslint-disable */
-
 import { NextRequest, NextResponse } from "next/server";
 import { jwtDecode } from "jwt-decode";
+import { Role } from "./lib/interface";
 
 interface JWTPayload {
     exp?: number;
     sub?: string;
-    email?: string;
-    roles?: string[];
+    username?: string;
+    role?: Role; 
 }
 
 interface TokenStatus {
@@ -20,11 +20,17 @@ interface TokenStatus {
 const LOGIN_URL = "/auth/login";
 const REGISTER_URL = "/auth/register";
 const DASHBOARD_URL = "/dashboard";
+const HOME_URL = "/";
 const TOKEN_EXPIRING_THRESHOLD = 300;
 
 const PROTECTED_ROUTES = [
     DASHBOARD_URL,
     `${DASHBOARD_URL}/meus_bilhetes`,
+];
+
+const ADMIN_ROUTES = [
+    `${DASHBOARD_URL}/gerenciar-rifas`,
+    `${DASHBOARD_URL}/historico-vendas`
 ];
 
 const AUTH_ROUTES = [
@@ -65,17 +71,24 @@ function verificaToken(token: string): TokenStatus {
     }
 }
 
+function isAdmin(tokenStatus: TokenStatus): boolean {
+    return tokenStatus.payload?.role === 'ADM';
+}
+
 export async function middleware(request: NextRequest) {
     const token = request.cookies.get("token")?.value;
-    
-    const isProtectedRoute = PROTECTED_ROUTES.some(route => 
+
+    const isProtectedRoute = PROTECTED_ROUTES.some(route =>
         request.nextUrl.pathname.startsWith(route)
     );
-    const isAuthRoute = AUTH_ROUTES.some(route => 
+    const isAuthRoute = AUTH_ROUTES.some(route =>
+        request.nextUrl.pathname === route
+    );
+    const isAdminRoute = ADMIN_ROUTES.some(route =>
         request.nextUrl.pathname === route
     );
 
-    if (isProtectedRoute) {
+    if (isProtectedRoute || isAdminRoute) {
         if (!token) {
             const loginUrl = new URL(LOGIN_URL, request.url);
             loginUrl.searchParams.set('returnUrl', request.nextUrl.pathname);
@@ -93,6 +106,10 @@ export async function middleware(request: NextRequest) {
             return response;
         }
 
+        if (isAdminRoute && !isAdmin(tokenStatus)) {
+            return NextResponse.redirect(new URL(HOME_URL, request.url));
+        }
+
         if (tokenStatus.expirando) {
             const response = NextResponse.next();
             response.headers.set('X-Token-Expiring', 'true');
@@ -104,7 +121,7 @@ export async function middleware(request: NextRequest) {
 
     if (isAuthRoute && token) {
         const tokenStatus = verificaToken(token);
-        
+
         if (tokenStatus.valido) {
             return NextResponse.redirect(new URL(DASHBOARD_URL, request.url));
         } else {

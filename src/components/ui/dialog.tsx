@@ -44,7 +44,7 @@ const DialogContent = React.forwardRef<
       {...props}
     >
       {children}
-      <DialogPrimitive.Close className="absolute lg:-right-12 md:-right-12 lg:-top-0 right-0  w-12 h-12 bg-white lg:rounded-r-md md:rounded-r-md flex items-center justify-center cursor-pointer">
+      <DialogPrimitive.Close className="absolute lg:-right-12 md:-right-12 -top-10 rounded-t-md lg:rounded-tl-none md:top-0 lg:-top-0 right-0  w-12 h-12 bg-white lg:rounded-r-md md:rounded-r-md flex items-center justify-center cursor-pointer">
         <IoMdClose size={30}/>  
       </DialogPrimitive.Close>
     </DialogPrimitive.Content>

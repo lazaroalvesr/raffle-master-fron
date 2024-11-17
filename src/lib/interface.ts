@@ -84,8 +84,8 @@ export interface PurchaseBuyCardProps {
     pixLink: string | any
     qrCode: string | any
     ticketPrice: string | any
-    amount: number 
-} 
+    amount: number
+}
 
 export interface TicketsProps {
     id: string,
@@ -129,6 +129,7 @@ export interface UserRaffleProps {
 export interface UserNavProps {
     name: string | undefined
     email: string | undefined
+    isAdm: boolean
 }
 
 export interface InfoPaymentProps {
@@ -165,17 +166,7 @@ export interface Props {
     children: ReactNode
 }
 
-export interface Raffles {
-    name: string
-}
 
-export interface Tickets {
-    name: string
-}
-
-export interface Payment {
-    name: string
-}
 
 
 export type TUser = {
@@ -186,9 +177,7 @@ export type TUser = {
     telephone: string
     role: Role
     access_token: string
-    raffles: Raffles[]
-    tickets: Tickets[]
-    Payment: Payment[]
+
 };
 
 export interface AuthUser {
@@ -201,7 +190,7 @@ export interface NavLinkProps {
     children: React.ReactNode
 }
 
-export interface dataProps{
+export interface dataProps {
     name?: string
     surname?: string
     email?: string,
@@ -219,10 +208,73 @@ export interface SidebarProps {
     setAtivo: (ativo: boolean) => void
 }
 
-export interface Rafle{
+export interface Rafle {
     id: string
     image: string
     name: string
     quantityNumbers: string;
 
+}
+
+export interface RaffleSelect {
+    id: string
+    name: string
+}
+
+export interface RaffleUniqueADM {
+    id: string
+    name: string;
+    endDate: string | any;
+    ticketPrice: string;
+    availableTickets: number;
+    quantityNumbers: number;
+    description?: string | any
+
+    onDelete: (id: string) => Promise<void>;
+}
+
+export interface RaffleUniqueEdit {
+    id: string
+    name: string;
+    endDate: string | any;
+    ticketPrice: string;
+    quantityNumbers: number;
+    image: null | File
+    description?: string | any
+}
+
+export interface InfoRaffleProps extends Partial<RaffleUniqueADM> {
+    close: () => void
+    isRaffleActive: (endDate: string) => boolean
+    onClick: () => void;
+}
+
+export interface RaffleInfoPaymento {
+    user: {
+        name: string
+    },
+    name: string
+    status: StatusPayment | any
+    createdAt: string
+    ticketNumbersCount: number
+    amount: number
+}
+
+export interface InfoRaffleCardProps extends Partial<RaffleInfoPaymento> {
+    close: () => void
+}
+
+export interface RaffleCreate {
+    name: string
+    description: string
+    quantityNumbers: string
+    ticketPrice: string
+    startDate: Date
+    endDate: Date
+    image: null | File
+}
+
+export interface TruncatedTextProps {
+    text: string;
+    className?: string;
 }

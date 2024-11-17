@@ -6,7 +6,7 @@ export const ButtonRedirect = () => {
     const { user } = useUser()
     
     const isUser = user?.user?.role === Role.USER
-    const roleUser = isUser ? "/dashboard/meusbilhetes" : "/dashboard/minhaConta"
+    const roleUser = isUser ? "/dashboard/meusbilhetes" : "/dashboard/gerenciar-rifas"
     const text = isUser ? "Meus Bilhetes" : "Minha Conta"
 
     return (

@@ -1,1 +1,1 @@
-export const BaseURL = "https://raffle-master-back.vercel.app/"
+export const BaseURL = "http://localhost:3001/"

@@ -1,4 +1,4 @@
-import ModalMinhaContaPage from "@/app/(protected)/dashboard/minhaconta/page"
+import ModalMinhaContaPage from "@/app/(protected)/dashboard/(user)/_minhaconta/page"
 import { useAuth } from "@/app/hooks/useAuth"
 import {
   Avatar,
@@ -15,12 +15,12 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { getInitials } from "@/lib/getInitials"
 import { UserNavProps } from "@/lib/interface"
-import { LogOut, Settings, User } from "lucide-react"
+import { Crown, LogOut, User } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
 import { createPortal } from "react-dom"
 
-export function UserNav({ email, name }: UserNavProps) {
+export function UserNav({ email, name, isAdm }: UserNavProps) {
   const { logout } = useAuth()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -33,6 +33,7 @@ export function UserNav({ email, name }: UserNavProps) {
     );
   };
 
+
   return (
     <DropdownMenu>
       {isModalOpen && <Modal />}
@@ -40,6 +41,11 @@ export function UserNav({ email, name }: UserNavProps) {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative hover:bg-gray-50 gap-2 w-full items-center justify-between h-full rounded-lg">
           <div className="flex items-center gap-2">
+            {isAdm && (
+              <div className="absolute -top-1 left-[35px] -translate-x-1/2 transform">
+                <Crown className="h-8 w-8 text-yellow-400" />
+              </div>
+            )}
             <Avatar className="h-9 w-9 -scroll-ml-3 border">
               <AvatarFallback>{getInitials(name)}</AvatarFallback>
             </Avatar>
@@ -65,10 +71,7 @@ export function UserNav({ email, name }: UserNavProps) {
             <User />
             Minha conta
           </DropdownMenuItem>
-          <DropdownMenuItem className="cursor-pointer">
-            <Settings />
-            Configurações
-          </DropdownMenuItem>
+
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={logout} className="cursor-pointer">

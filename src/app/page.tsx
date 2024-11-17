@@ -1,12 +1,12 @@
 import Footer from "./_components/home/footer";
 import Header from "./_components/home/header";
-import Main from "./_components/home/main";
+import RaffleAll from "./_components/home/raffleAll";
 
 export default function Home() {
   return (
     <div>
       <Header />
-      <Main />
+      <RaffleAll />
       <Footer />
     </div>
   );
