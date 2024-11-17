@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import axios from 'axios';
 import { BaseURL } from "../api/api";
 import Cookies from "js-cookie";

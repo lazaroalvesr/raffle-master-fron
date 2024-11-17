@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Ticket, Calendar } from "lucide-react"
+import {  Calendar } from "lucide-react"
 import Image from "next/image"
 import { formatDateWithMonthName } from "@/lib/formatDate"
 import { InfoRaffleCardProps } from "@/lib/interface"
