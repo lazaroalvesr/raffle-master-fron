@@ -77,33 +77,27 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
 
     const handleSubmit = async (data: dataProps, e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+    
         setError(null);
         setSuccess(null);
         setLoading(true);
-
+    
         if (!user?.user.id) {
             setError("User ID is not available.");
             setLoading(false);
             return;
         }
-
-        const isAnyFieldFilled =
-            data.name !== data.name ||
-            data.surname !== data.surname ||
-            data.email !== data.email ||
-            data.telephone !== data.telephone;
-
-        if (!isAnyFieldFilled) {
-            setError("Preencha pelo menos um campo para atualizar as informações.");
-            setLoading(false);
-            return;
-        }
-
+    
+        const filteredData: Partial<dataProps> = Object.fromEntries(
+            Object.entries(data).filter(([key, value]) => 
+                value !== "" && value !== user.user[key as keyof typeof user.user]
+            )
+        );
+    
         try {
             const response = await axios.patch(
                 `${BaseURL}auth/editUser/${user.user.id}`,
-                data,
+                filteredData,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -111,20 +105,18 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
                     },
                 }
             );
-
+    
             const result = response.data;
-
+    
             if (result.token) {
                 Cookies.set('token', result.token);
             }
-
+    
             updateUser({
-                name: data.name,
-                surname: data.surname,
-                email: data.email,
-                telephone: data.telephone,
+                ...user.user,
+                ...filteredData,
             });
-
+    
             setIsEditing(false);
             setSuccess("Informações atualizadas com sucesso!");
         } catch (e) {
@@ -134,6 +126,7 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
             setLoading(false);
         }
     };
+    
 
     return (
         <Card className="w-full z-50 max-w-md mx-auto relative">
