@@ -1,12 +1,13 @@
-/* eslint-disable */
-
 import axios from 'axios';
 import { BaseURL } from "@/app/api/api";
 
 async function getRaffles() {
     try {
         const response = await axios.get(`${BaseURL}raffle/getAll`, {
-            headers: { accept: 'application/json' },
+            headers: { 
+                accept: 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded' // Corrected Content-Type
+            },
             withCredentials: true,
         });
 

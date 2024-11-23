@@ -21,6 +21,7 @@ const token = Cookies.get("token")
                 await axios.get('https://tecnewsbr.com.br/csrf/token', {
                     headers:{
                         Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/x-www-form-urlencoded' // Corrected Content-Type
                     },
                     withCredentials: true,
                 });
