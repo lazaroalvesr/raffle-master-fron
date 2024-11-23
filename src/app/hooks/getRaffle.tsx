@@ -6,7 +6,8 @@ import { BaseURL } from "@/app/api/api";
 async function getRaffles() {
     try {
         const response = await axios.get(`${BaseURL}raffle/getAll`, {
-            headers: { accept: 'application/json' }
+            headers: { accept: 'application/json' },
+            withCredentials: true,
         });
 
         return response.data;
