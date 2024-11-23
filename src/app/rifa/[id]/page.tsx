@@ -36,6 +36,7 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
     const [show, setShow] = useState(false);
     const [count, setCount] = useState(1);
     const [noticeMessage, setNoticeMessage] = useState<string | null>(null);
+    const csrf = Cookies.get("XSRF-TOKEN")
 
     const userId = user?.user?.id
     const email = user?.user?.email;
@@ -45,7 +46,6 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
         try {
             setLoading(true);
             const response = await axios.get(`${BaseURL}raffle/getById/${id}`);
-            console.log(response)
             setRaffles(response.data);
         } catch (error) {
             setErrorMessage("Error fetching raffle details. Please try again later.");
@@ -65,18 +65,25 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
         setSuccessMessage("");
 
         try {
+            console.log('CSRF Token:', Cookies.get("XSRF-TOKEN"));
+            console.log('Authorization Token:', token);
+
             const response = await axios.post(
                 `${BaseURL}tickets/buy`,
                 { userId, email, raffleId: (await params).id, quantity },
-                { headers: { Authorization: `Bearer ${token}` } }
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "XSRF-TOKEN": csrf
+                    },
+                    withCredentials: true,
+                }
             );
 
-            console.log(response);
 
             setBuyTickets(response.data);
             setQuantity(quantity);
             setQrCode(response.data.paymentDetails.qrCode);
-
             setSuccessMessage("Números comprados com sucesso!");
             setSuccessModalOpen(true);
         } catch (error: any) {

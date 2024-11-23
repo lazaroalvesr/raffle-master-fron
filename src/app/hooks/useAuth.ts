@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
 export const useAuth = () => {
-    const API_URL = "http://localhost:3001/"
+    const API_URL = "https://tecnewsbr.com.br/"
     const { user, addUser, removeUser } = useUser();
     const router = useRouter();
 

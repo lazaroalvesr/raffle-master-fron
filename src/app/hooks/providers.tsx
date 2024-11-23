@@ -1,10 +1,10 @@
 import { AuthProvider } from "../contexts/AuthContext";
-import { CLientCookiesProvider } from "../contexts/ClientCookiesProvider";
+import { ClientCookiesProvider } from "../contexts/ClientCookiesProvider";
 
 export function Providers({ children }: React.PropsWithChildren) {
     return (
-        <CLientCookiesProvider>
+        <ClientCookiesProvider>
             <AuthProvider>{children}</AuthProvider>
-        </CLientCookiesProvider>
+        </ClientCookiesProvider>
     );
 }

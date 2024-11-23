@@ -11,7 +11,7 @@ interface clientCookiesContextType {
 
 const clientCookieContext = createContext<clientCookiesContextType | undefined>(undefined);
 
-export const CLientCookiesProvider: React.FC<Props> = ({ children }) => {
+export const ClientCookiesProvider: React.FC<Props> = ({ children }) => {
     const getCookie = (name: string) => {
         return Cookies.get(name)
     }

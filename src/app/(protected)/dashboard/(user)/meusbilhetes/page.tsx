@@ -27,7 +27,7 @@ export default function MeusBilhetesPage() {
                 setError(null);
 
                 const response = await axios.get(
-                    `https://raffle-master-back.vercel.app/payment/getById/${user.user.id}`,
+                    `https://tecnewsbr.com.br/payment/getById/${user.user.id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,

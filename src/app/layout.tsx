@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Roboto } from 'next/font/google'
 import { Providers } from "./hooks/providers";
+import { CSRFProvider } from "./contexts/csrfContext";
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -27,9 +28,11 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/img/icons/FavIcon.svg" type="image/png" />
       </head>
       <body className={roboto.className}>
-        <Providers>
-          {children}
-        </Providers>
+        <CSRFProvider>
+          <Providers>
+            {children}
+          </Providers>
+        </CSRFProvider>
       </body>
     </html>
   );
