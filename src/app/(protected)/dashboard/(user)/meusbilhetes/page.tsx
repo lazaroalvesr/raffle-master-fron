@@ -15,6 +15,7 @@ export default function MeusBilhetesPage() {
     const [data, setData] = useState<UserRaffleProps[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+
     useEffect(() => {
         const fetchData = async () => {
             if (!user?.user?.id) {
@@ -62,7 +63,7 @@ export default function MeusBilhetesPage() {
             ) : error ? (
                 <div className="text-red-600">{error}</div>
             ) : (
-                <div className="px-4 w-full">
+                <div className="lg:ml-7 px-3 lg:px-0 md:ml-5">
                     <TableMeusBilhetesUser
                         tickets={data.map((item: UserRaffleProps) => ({
                             nameRafle: item.raffle.name,

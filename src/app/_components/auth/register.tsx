@@ -21,10 +21,18 @@ export default function FormularioCadastro() {
    
     const formatTelephone = (value: string) => {
         value = value.replace(/\D/g, '');
-        value = value.slice(0, 11);
-        value = value.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+    
+        if (value.length > 11) {
+            return value.substring(0, 11);
+        }
+            if (value.length === 11) {
+            value = value.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+        }
+    
         return value;
     };
+    
+    
     
     const handleTelephoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const formattedValue = formatTelephone(e.target.value);

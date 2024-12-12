@@ -9,6 +9,7 @@ import { RaffleUniqueADM, RaffleUniqueEdit } from "@/lib/interface";
 import { TableRifasAdm } from "@/app/_components/util/tableRifasAdm";
 import axios from "axios";
 import { BaseURL } from "@/app/api/api";
+import { Loading } from "@/app/_components/util/loading";
 
 export default function GerenciarRifas() {
     const { user } = useUser();
@@ -93,7 +94,7 @@ export default function GerenciarRifas() {
             setData((prevData) =>
                 prevData.map((raffle) =>
                     raffle.id === raffleId
-                        ? { ...raffle, ...updatedRaffle, image: undefined } 
+                        ? { ...raffle, ...updatedRaffle, image: undefined }
                         : raffle
                 )
             );
@@ -103,19 +104,13 @@ export default function GerenciarRifas() {
         console.log("Editing raffle:", raffleId, updatedRaffle);
     };
 
-
-
-
     return (
         <section className="flex flex-col w-full pt-[60px] lg:pt-[16px] md:w-full m-auto md:justify-start md:items-start justify-center items-center">
             <div className="flex w-full pl-8 lg:pl-6 border-b md:pl-8 mb-6 border-gray-200">
                 <h1 className="mb-2 text-3xl font-bold tracking-tight">Minhas Rifas</h1>
             </div>
             {loading ? (
-                <div className="flex justify-center w-full items-center h-full">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-                    <p className="ml-4 text-lg">Loading...</p>
-                </div>
+                <Loading />
             ) : error ? (
                 <div className="text-red-600">{error}</div>
             ) : (

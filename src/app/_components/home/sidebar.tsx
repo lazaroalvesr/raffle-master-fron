@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Clover, Home, Ticket, HelpCircle, Headphones, DollarSign, SquarePen } from 'lucide-react'
+import { Clover, Home, Ticket, HelpCircle, Headphones, DollarSign, SquarePen, Users } from 'lucide-react'
 import { IoMdClose } from 'react-icons/io'
 import { NavLink } from '../util/linkRedirect'
 import { UserNav } from './useNav'
@@ -85,6 +85,10 @@ export default function Sidebar({ ativo, setAtivo }: SidebarProps) {
                                     <NavLink href="/dashboard/criar-rifa">
                                         <SquarePen className="h-5 w-5" />
                                         <span>Criar Rifa</span>
+                                    </NavLink>
+                                    <NavLink href="/dashboard/users">
+                                        <Users  className="h-5 w-5" />
+                                        <span>Todos os Participantes</span>
                                     </NavLink>
                                 </nav>
                             </div>

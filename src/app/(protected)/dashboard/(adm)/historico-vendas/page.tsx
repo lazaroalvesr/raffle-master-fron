@@ -8,6 +8,7 @@ import getRaffles from "@/app/hooks/getRaffle";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import getInfoPaymentRaffle from "@/app/hooks/getInfoPaymentRaffle";
 import { TablePagamentosAdm } from "@/app/_components/util/tablePagamentosAdm";
+import { Loading } from "@/app/_components/util/loading";
 
 const PaymentsTable = () => {
     const [selectedRaffle, setSelectedRaffle] = useState<string>('');
@@ -22,9 +23,9 @@ const PaymentsTable = () => {
                 const data = await getRaffles();
                 setRaffles(data);
                 if (data.length > 0) {
-                    setSelectedRaffle(data[0].id); 
+                    setSelectedRaffle(data[0].id);
                 } else {
-                    setLoading(false); 
+                    setLoading(false);
                 }
             } catch (err) {
                 setError("Failed to fetch raffles");
@@ -36,7 +37,7 @@ const PaymentsTable = () => {
 
     useEffect(() => {
         async function fetchInfoPaymentRaffle() {
-            if (!selectedRaffle) return; 
+            if (!selectedRaffle) return;
             try {
                 setLoading(true);
                 const data = await getInfoPaymentRaffle({ selectedRaffle });
@@ -73,10 +74,7 @@ const PaymentsTable = () => {
                 </div>
 
                 {loading ? (
-                    <div className="flex justify-center items-center h-full space-x-4">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-                        <p className="text-lg text-gray-600">Loading...</p>
-                    </div>
+                    <Loading />
                 ) : (
                     <div className="px-4 w-full">
                         <TablePagamentosAdm raffles={infoPaymentRaffle} />

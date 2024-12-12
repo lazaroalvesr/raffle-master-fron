@@ -47,6 +47,10 @@ const faqs = [
     {
         question: "Quais são as formas de pagamento aceitas?",
         answer: "Pagamento exclusivamente via PIX para sua conveniência."
+    },
+    {
+        question: "O que faço se o status do pagamento demorar a ser atualizado?",
+        answer: "Caso o status do seu pagamento não seja atualizado em até 24 horas, por favor, entre em contato com nosso suporte. Estamos prontos para ajudar a resolver a situação o mais rápido possível. Envie um e-mail para suporte@exemplo.com, incluindo o nome da rifa, o e-mail e o número de celular cadastrados."
     }
 ]
 

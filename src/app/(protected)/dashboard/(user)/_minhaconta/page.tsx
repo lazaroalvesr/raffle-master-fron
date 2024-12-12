@@ -17,10 +17,11 @@ import { BaseURL } from "@/app/api/api"
 import { IoMdClose } from "react-icons/io"
 import { Crown } from "lucide-react"
 import axios from "axios"
+import { formatTelephone } from "@/lib/formatTelephone"
 
 export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
-    const { user, updateUser } = useUser()
-    const isAdmin = user?.user.role === Role.ADM 
+    const { user, updateUser, deleteAccount } = useUser()
+    const isAdmin = user?.user.role === Role.ADM
 
     const [isEditing, setIsEditing] = useState<boolean>(false)
     const token = Cookies.get("token");
@@ -39,14 +40,6 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
         setIsOpen(true)
     }
 
-    const formatTelephone = (value: string | undefined) => {
-        if (!value) return "";
-
-        value = value.replace(/\D/g, '');
-        value = value.slice(0, 11);
-        value = value.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
-        return value;
-    };
 
     const handleTelephoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData((prevData) => ({
@@ -77,23 +70,23 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
 
     const handleSubmit = async (data: dataProps, e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-    
+
         setError(null);
         setSuccess(null);
         setLoading(true);
-    
+
         if (!user?.user.id) {
             setError("User ID is not available.");
             setLoading(false);
             return;
         }
-    
+
         const filteredData: Partial<dataProps> = Object.fromEntries(
-            Object.entries(data).filter(([key, value]) => 
+            Object.entries(data).filter(([key, value]) =>
                 value !== "" && value !== user.user[key as keyof typeof user.user]
             )
         );
-    
+
         try {
             const response = await axios.patch(
                 `${BaseURL}auth/editUser/${user.user.id}`,
@@ -105,18 +98,18 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
                     },
                 }
             );
-    
+
             const result = response.data;
-    
+
             if (result.token) {
                 Cookies.set('token', result.token);
             }
-    
+
             updateUser({
                 ...user.user,
                 ...filteredData,
             });
-    
+
             setIsEditing(false);
             setSuccess("Informações atualizadas com sucesso!");
         } catch (e) {
@@ -126,12 +119,11 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
             setLoading(false);
         }
     };
-    
 
     return (
         <Card className="w-full z-50 max-w-md mx-auto relative">
             <button onClick={() => setIsModalOpen(false)} className="absolute lg:-right-[45px] md:-right-[42px] md:-top-[0.5px] md:rounded-l-none md:rounded-br-md right-0 items-center flex justify-center -top-[40px] rounded-b-none lg:rounded-b-none lg:rounded-br-md rounded-md lg:rounded-l-none lg:top-0 lg:rounded-r-md w-12 h-12 bg-white">
-                <IoMdClose size={30}  />
+                <IoMdClose size={30} />
             </button>
             <CardHeader className="relative flex flex-col items-center space-y-4 pb-6 pt-8">
                 {isAdmin && (
@@ -255,7 +247,7 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
                 </Dialog>
                 <AlertDialog>
                     <AlertDialogTrigger asChild>
-                        <Button variant="destructive">Deletar conta</Button>
+                        <Button variant="destructive" onClick={() => deleteAccount(user?.user.id, token)}>Deletar conta</Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                         <AlertDialogHeader>

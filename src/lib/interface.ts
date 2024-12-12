@@ -260,6 +260,17 @@ export interface RaffleInfoPaymento {
     amount: number
 }
 
+export interface UserAllProps {
+    name: string
+    surname: string
+    email: string
+    telephone: string
+}
+
+export interface InfoUserAllCardProps extends Partial<UserAllProps> {
+    close: () => void
+}
+
 export interface InfoRaffleCardProps extends Partial<RaffleInfoPaymento> {
     close: () => void
 }

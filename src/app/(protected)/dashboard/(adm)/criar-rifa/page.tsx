@@ -122,9 +122,11 @@ export default function CriarRifa() {
             const response = await axios.post(`${BaseURL}raffle/create`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    "Content-Type": "multipart/form-data",
                 },
+                withCredentials: true,
             });
+
+            console.log(response)
 
             if (response && response.status === 200) {
                 setSucess("Rifa criada com sucesso!");
@@ -138,6 +140,8 @@ export default function CriarRifa() {
             setLoading(false);
         }
     };
+
+    console.log(data)
 
 
     return (

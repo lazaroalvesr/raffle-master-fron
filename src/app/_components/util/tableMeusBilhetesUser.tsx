@@ -20,15 +20,15 @@ export const TableMeusBilhetesUser = ({ tickets = [] }: TableProps) => {
     };
 
     return (
-        <div className="border rounded-md flex mx-3 overflow-y-auto custom-scrollbar lg:h-[580px]">
-            <div className="w-full flex overflow-x-scroll lg:overflow-visible relative">
-                <table className="w-full border-collapse ">
-                    <thead className="h-12 bg-gray-100 flex items-center">
-                        <tr className="text-[17px] w-full justify-between  flex pb-2 lg:pb-6 ">
+        <div className="border rounded-md lg:w-[1100px] flex overflow-y-auto custom-scrollbar lg:h-[580px]">
+            <div className=" overflow-x-scroll   lg:overflow-visible relative">
+                <table className=" lg:w-[1098px]">
+                    <thead className=" bg-gray-100">
+                        <tr className="text-[17px]  ">
                             <th scope="col" className="px-4 lg:py-2 h-4 text-left">Nome</th>
                             <th scope="col" className="px-4 lg:py-2 h-4 text-left hidden lg:table-cell md:table-cell">Status Pagamento</th>
                             <th scope="col" className="px-4 lg:py-2 h-4 text-left hidden lg:table-cell md:table-cell">Data da compra</th>
-                            <th scope="col" className="px-4 lg:py-2 h-4 text-left hidden lg:table-cell md:table-cell">Valor</th>
+                            <th scope="col" className="px-4 lg:py-2 h-4 text-left hidden lg:table-cell ">Valor</th>
                             <th scope="col" className="px-4 lg:py-2 h-4 text-left ">Informações</th>
                         </tr>
                     </thead>
@@ -37,12 +37,12 @@ export const TableMeusBilhetesUser = ({ tickets = [] }: TableProps) => {
                             tickets.map((ticket, index) => (
                                 <tr key={index}>
                                     <td className="px-4 py-2 w-60 lg:text-lg text-base overflow-hidden truncate">
-                                        <p className="lg:w-96 w-40truncate">{ticket.infosName || "Nome não disponível"}</p>
+                                        <p className="lg:w-96 w-32 truncate">{ticket.infosName || "Nome não disponível"}</p>
                                     </td>
                                     <td className="px-4 py-2  hidden lg:table-cell md:table-cell">
                                         <StatusPayment infoPayment={ticket.infoPayment} />
                                     </td>
-                                    <td className="px-4 py-2  text-lg  hidden lg:table-cell">
+                                    <td className="px-4 py-2  text-lg  hidden md:table-cell lg:table-cell">
                                         {ticket.infoDateBuy ? formatDate(ticket.infoDateBuy) : "Data não disponível"}
                                     </td>
                                     <td className="px-4 py-2  text-lg hidden lg:table-cell">

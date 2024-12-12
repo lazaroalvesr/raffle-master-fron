@@ -8,7 +8,7 @@ async function getRaffles() {
         const response = await axios.get(`${BaseURL}raffle/getAll`, {
             headers: { 
                 accept: 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded' // Corrected Content-Type
+                'Content-Type': 'application/x-www-form-urlencoded' 
             },
             withCredentials: true,
         });
