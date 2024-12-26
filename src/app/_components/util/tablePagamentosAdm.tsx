@@ -9,10 +9,30 @@ import { Calendar, Info, SearchX } from "lucide-react";
 import { StatusPayment } from "./statusPayment";
 import { formatCurrency } from "@/app/hooks/formatCurrency "
 import InfoCardPaymentInfo from "./infoCardPaymentInfo";
+import { useResponsiveItemsPerPage } from "@/app/hooks/useResponsiveItemsPerPage";
+import { PaginationControl } from "./pagination";
 
 export const TablePagamentosAdm = ({ raffles }: { raffles: RaffleInfoPaymento[] }) => {
     const [show, setShow] = useState(false);
     const [selectedRaffle, setSelectedRaffle] = useState<RaffleInfoPaymento | null>(null);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const itemsPerPage = useResponsiveItemsPerPage({
+        itemsTablet: 11,
+        itemsDefault: 8
+    })
+
+    const totalPages = Math.ceil(raffles.length / itemsPerPage);
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) setCurrentPage((prev) => prev + 1)
+    }
+
+    const handlePrevPage = () => {
+        if (currentPage > 1) setCurrentPage((prev) => prev - 1)
+    }
+
+    const displayedPayments = raffles.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
     function toggle(raffles: any) {
         setSelectedRaffle(raffles);
@@ -25,7 +45,7 @@ export const TablePagamentosAdm = ({ raffles }: { raffles: RaffleInfoPaymento[] 
     };
     return (
         <div className="w-full overflow-y-auto custom-scrollbar lg:h-[580px]">
-            <div className="rounded-xl w-full lg:mx-0 border bg-white shadow-sm">
+            <div className="rounded-md w-full lg:mx-0 border bg-white shadow-sm lg:h-[508px] h-[605px] md:h-[810px]">
                 <div className="overflow-x-auto w-full">
                     <table className="w-full border-collapse">
                         <thead>
@@ -54,7 +74,7 @@ export const TablePagamentosAdm = ({ raffles }: { raffles: RaffleInfoPaymento[] 
                                     </td>
                                 </tr>
                             ) : (
-                                raffles.map((rifa, index) => (
+                                displayedPayments.map((rifa, index) => (
                                     <tr key={index} className="border-b transition-colors hover:bg-gray-50/50">
                                         <td className="py-4 px-4">
                                             <div className="flex flex-col">
@@ -121,6 +141,18 @@ export const TablePagamentosAdm = ({ raffles }: { raffles: RaffleInfoPaymento[] 
                     </div>
                 </div>
             )}
+            <div className="flex mt-8">
+                <p>Quantidade de Pagamentos: <span className="font-bold">{raffles.length}</span></p>
+                <div className=" items-center justify-center m-auto">
+                    <PaginationControl
+                        setCurrentPage={setCurrentPage}
+                        handleNextPage={handleNextPage}
+                        handlePrevPage={handlePrevPage}
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                    />
+                </div>
+            </div>
         </div>
     );
 };

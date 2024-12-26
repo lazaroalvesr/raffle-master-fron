@@ -42,8 +42,7 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
 
     const userId = user?.user?.id
     const email = user?.user?.email;
-    const maxTickets = Number(raffles?.raffle.quantityNumbers);
-    const numbersAvaible = Number(raffles?.availableTickets);
+    const numbersAvailable = Number(raffles?.availableTickets);
 
     async function getRaffle() {
         try {
@@ -96,18 +95,15 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
             console.error('Erro detalhado:', error);
 
             if (error.response) {
-                // O servidor respondeu com um status de erro
                 console.error('Erro de Resposta:', error.response.data);
                 console.error('Status:', error.response.status);
                 console.error('Headers:', error.response.headers);
 
                 setErrorMessage(`Erro ao comprar número: ${error.response.data.message || 'Erro desconhecido'}`);
             } else if (error.request) {
-                // A requisição foi feita, mas não houve resposta
                 console.error('Erro de Requisição:', error.request);
                 setErrorMessage("Sem resposta do servidor");
             } else {
-                // Algo aconteceu ao configurar a requisição
                 console.error('Erro de Configuração:', error.message);
                 setErrorMessage("Erro na configuração da requisição");
             }
@@ -121,7 +117,10 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
     }, [id]);
 
     const handleSetCount = (value: number) => {
-        setCount((prevCount) => Math.min(prevCount + value, maxTickets));
+        setCount((prevCount) => {
+            const newCount = prevCount + value;
+            return Math.min(newCount, numbersAvailable);
+        });
     };
 
     const handleDecrement = () => {
@@ -139,7 +138,7 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
     }
 
     const closeSuccessModal = () => setSuccessModalOpen(false);
-    const numbersSoldOut = Number(raffles?.availableTickets) === 0;
+    const numbersSoldOut = Number(raffles?.availableTickets) === 0 || raffles?.raffle.winnerTicketId !== null;
 
     return (
         <section className="max-w-6xl flex justify-center items-center m-auto flex-col lg:pb-32 pb-12">
@@ -183,6 +182,7 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
                                 quantityNumbers={raffles?.raffle.quantityNumbers}
                                 ticketPrice={raffles?.raffle.ticketPrice}
                                 endDate={raffles?.raffle.endDate}
+                                winnerTicketId={raffles?.raffle.winnerTicketId}
                             />
 
                             <Card className="relative flex flex-col justify-center m-auto items-center">
@@ -213,11 +213,11 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
                                     </div>
 
                                     <div className="grid grid-cols-3 gap-2 mb-6">
-                                        <Button variant="outline" onClick={() => handleSetCount(1)} disabled={loadingBuy || numbersSoldOut || count >= numbersAvaible} className="w-full">+1</Button>
-                                        <Button variant="outline" onClick={() => handleSetCount(5)} disabled={loadingBuy || numbersSoldOut || count >= numbersAvaible} className="w-full">+5</Button>
-                                        <Button variant="outline" onClick={() => handleSetCount(10)} disabled={loadingBuy || numbersSoldOut || count >= numbersAvaible} className="w-full">+10</Button>
-                                        <Button variant="outline" onClick={() => handleSetCount(15)} disabled={loadingBuy || numbersSoldOut || count >= numbersAvaible} className="w-full">+15</Button>
-                                        <Button variant="outline" onClick={() => handleSetCount(20)} disabled={loadingBuy || numbersSoldOut || count >= numbersAvaible} className="w-full">+20</Button>
+                                        <Button variant="outline" onClick={() => handleSetCount(1)} disabled={loadingBuy || numbersSoldOut || count >= Number(raffles?.availableTickets)} className="w-full">+1</Button>
+                                        <Button variant="outline" onClick={() => handleSetCount(5)} disabled={loadingBuy || numbersSoldOut || count >= Number(raffles?.availableTickets)} className="w-full">+5</Button>
+                                        <Button variant="outline" onClick={() => handleSetCount(10)} disabled={loadingBuy || numbersSoldOut || count >= Number(raffles?.availableTickets)} className="w-full">+10</Button>
+                                        <Button variant="outline" onClick={() => handleSetCount(15)} disabled={loadingBuy || numbersSoldOut || count >= Number(raffles?.availableTickets)} className="w-full">+15</Button>
+                                        <Button variant="outline" onClick={() => handleSetCount(20)} disabled={loadingBuy || numbersSoldOut || count >= Number(raffles?.availableTickets)} className="w-full">+20</Button>
                                     </div>
 
                                     <div className="flex justify-between items-center p-4 bg-muted rounded-lg mb-6">
@@ -236,11 +236,11 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
                                             : 'bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white'
                                             }`}
                                         size="lg"
-                                        disabled={loadingBuy || numbersAvaible === 0}
+                                        disabled={loadingBuy || numbersAvailable === 0 || raffles?.raffle.winnerTicketId !== null}
                                     >
                                         <span className={`flex items-center justify-center transition-opacity duration-300 ${loadingBuy ? 'opacity-0' : 'opacity-100'}`}>
                                             <Ticket className="mr-2 h-5 w-5" />
-                                            {numbersAvaible === 0
+                                            {numbersAvailable === 0
                                                 ? "Numeros Esgotados"
                                                 : `Comprar ${count} ${count === 1 ? 'número' : 'números'}`
                                             }

@@ -6,6 +6,7 @@ export interface CardRaffleProps {
     src: string
     href: string
     text: string
+    description: string;
     quantityNumbers: string;
 }
 
@@ -26,6 +27,7 @@ export interface RaffleUniqueProps {
         endDate: string;
         quantityNumbers: string;
         ticketPrice: string;
+        winnerTicketId: string | undefined
     }
     availableTickets: string;
 }
@@ -42,6 +44,7 @@ export interface InfosCardProps {
     ticketPrice: string | any
     quantityNumbers: number | any
     endDate: string | undefined
+    winnerTicketId: string | undefined
 }
 
 export interface BuyCardProps extends Partial<InfosCardProps> {
@@ -143,7 +146,7 @@ export interface InfoPaymentProps {
     close: () => void
 }
 
-export interface Ticket {
+export interface TicketInterface {
     nameRafle: string
     infosName?: string;
     infoPayment?: string;
@@ -155,7 +158,7 @@ export interface Ticket {
 }
 
 export interface TableProps {
-    tickets?: Ticket[];
+    tickets?: TicketInterface[];
 }
 
 export interface StatusPaymentCardProps {
@@ -165,9 +168,6 @@ export interface StatusPaymentCardProps {
 export interface Props {
     children: ReactNode
 }
-
-
-
 
 export type TUser = {
     id: string;
@@ -212,8 +212,8 @@ export interface Rafle {
     id: string
     image: string
     name: string
+    description: string
     quantityNumbers: string;
-
 }
 
 export interface RaffleSelect {
@@ -229,8 +229,15 @@ export interface RaffleUniqueADM {
     availableTickets: number;
     quantityNumbers: number;
     description?: string | any
+    winnerTicketId: string | undefined
+    winner: {
+        email: string
+        name: string
+        telephone: string,
+    }
 
     onDelete: (id: string) => Promise<void>;
+    drawWinner: (id: string) => Promise<void>
 }
 
 export interface RaffleUniqueEdit {
@@ -243,10 +250,20 @@ export interface RaffleUniqueEdit {
     description?: string | any
 }
 
-export interface InfoRaffleProps extends Partial<RaffleUniqueADM> {
+export interface InfoRaffleProps {
+    id: string
+    name: string;
+    quantityNumbers: number;
+    endDate: string | any;
+    availableTickets: number;
+    ticketPrice: string;
+    winnerTicketId: string
     close: () => void
-    isRaffleActive: (endDate: string) => boolean
+    openModalInfoWinner: (id: string) => Promise<void>
+    isRaffleActive: (endDate: string, winnerTicketId: string) => boolean;
     onClick: () => void;
+    winner: (raffleId: string) => void
+    drawWinner: (id: string) => Promise<void>
 }
 
 export interface RaffleInfoPaymento {
@@ -260,14 +277,20 @@ export interface RaffleInfoPaymento {
     amount: number
 }
 
-export interface UserAllProps {
-    name: string
-    surname: string
-    email: string
-    telephone: string
+export interface User {
+    name: string,
+    surname: string,
+    email: string,
+    role: Role,
+    telephone: string,
 }
 
-export interface InfoUserAllCardProps extends Partial<UserAllProps> {
+export interface UserResponse {
+    count: number;
+    user: User[]
+}
+
+export interface InfoUserAllCardProps extends Partial<User> {
     close: () => void
 }
 
@@ -288,4 +311,73 @@ export interface RaffleCreate {
 export interface TruncatedTextProps {
     text: string;
     className?: string;
+}
+
+export interface DrawWinnerTicketResponse {
+    message: string;
+    winner: {
+        ticket: {
+            id: string
+            number: number[],
+            dateBuy: Date,
+        }
+        user: {
+            name: string
+            email: string
+            telephone: string
+        },
+        drawDate: Date
+    }
+}
+
+export interface WinnerInfosProps {
+    raffle: {
+        winnerTicket: {
+            number: number[]
+            user: {
+                email: string
+                name: string
+                telephone: string,
+            }
+        }
+        drawDate: string
+    }
+}
+
+export interface DranwWinnerProps {
+    name: string
+    number: number[]
+    email: string
+    telephone: string
+    close?: () => void
+}
+
+export interface InfoWinnerProps {
+    name: string
+    number: number[]
+    email: string
+    telephone: string
+    drawDate: string
+    close?: () => void
+}
+
+export interface TableRifasAdmProps {
+    raffles: RaffleUniqueADM[];
+    onDelete: (raffleId: string) => void;
+    onEdit: (raffleId: string, updatedRaffle: RaffleUniqueEdit) => void;
+    drawWinner: (raffleId: string) => void
+    winner: (raffleId: string) => void
+}
+
+export interface useResponsiveItemsPerPageProps {
+    itemsTablet: number
+    itemsDefault: number
+}
+
+export interface paginationProps {
+    handlePrevPage: () => void
+    currentPage: number;
+    totalPages: number;
+    handleNextPage: () => void
+    setCurrentPage: (page: number) => void;
 }

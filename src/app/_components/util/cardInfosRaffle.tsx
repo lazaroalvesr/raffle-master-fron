@@ -4,8 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { formatDate } from "@/lib/formatDate"
 import { InfosCardProps } from "@/lib/interface"
 import { Calendar } from "lucide-react"
+import Image from "next/image"
 
-export const CardInfosRaffle = ({ endDate, quantityNumbers, ticketPrice }: InfosCardProps) => {
+export const CardInfosRaffle = ({ endDate, quantityNumbers, ticketPrice, winnerTicketId }: InfosCardProps) => {
     return (
         <Card>
             <CardHeader className="border-b bg-muted bg-[#50c878] rounded-t-md text-gray-50">
@@ -28,6 +29,25 @@ export const CardInfosRaffle = ({ endDate, quantityNumbers, ticketPrice }: Infos
                             <span>{formatDate(endDate)}</span>
                         </div>
                     </div>
+                    {winnerTicketId && (
+                        <div className="flex justify-between items-center">
+                            <span className="bg-emerald-700 gap-4 w-full flex items-center justify-center text-white rounded-md text-center py-2">
+                                <Image
+                                    src="/img/icons/icon_festa.png"
+                                    alt="Icone de Festa"
+                                    width={30}
+                                    height={30}
+                                />
+                                Sorteio Realizado
+                                <Image
+                                    src="/img/icons/icon_festa.png"
+                                    alt="Icone de Festa"
+                                    width={30}
+                                    height={30}
+                                />
+                            </span>
+                        </div>
+                    )}
                 </div>
             </CardContent>
         </Card>

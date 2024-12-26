@@ -25,8 +25,8 @@ export const useUser = () => {
         Cookies.remove("user");
     };
 
-    
-    const deleteAccount = async (id: string | any, token: string | any) => {
+
+    const deleteAccount = async (id: string | undefined, token: string | undefined) => {
         try {
             const response = await axios.delete(`${BaseURL}auth/delete/${id}`, {
                 headers: {
@@ -38,7 +38,7 @@ export const useUser = () => {
             }
 
             setUser(null)
-            
+
             Cookies.remove("user")
             Cookies.remove("token")
         } catch (err) {

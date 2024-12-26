@@ -14,7 +14,7 @@ export default function Sidebar({ ativo, setAtivo }: SidebarProps) {
 
     return (
         <aside className={`flex flex-col fixed inset-y-0 left-0 z-50 w-64 border-r border-gray-200 bg-white transition-all duration-300 ease-in-out lg:relative lg:translate-x-0 ${ativo ? "translate-x-0" : "-translate-x-full"}`}>
-            <div className="flex items-center justify-between border-b border-gray-100 p-4">
+            <div className="flex items-center justify-between border-b border-gray-200 p-4">
                 <div className="flex items-center gap-2">
                     <Clover className="h-6 w-6 text-green-500" />
                     <span className="text-xl font-bold">Rifa Flow</span>

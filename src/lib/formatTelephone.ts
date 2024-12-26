@@ -1,4 +1,3 @@
-
 export const formatTelephone = (value: string | undefined) => {
     if (!value) return "";
 
@@ -8,9 +7,9 @@ export const formatTelephone = (value: string | undefined) => {
     return value;
 };
 
-export const formatTelephoneLinkWhatsapp = (telephone: string | any) => {
-    const cleanNumber = telephone.replace(/\D/g, "")
-    const formateNumber = cleanNumber.startsWith("55")
+export const formatTelephoneLinkWhatsapp = (telephone: string | undefined) => {
+    const cleanNumber = telephone?.replace(/\D/g, "")
+    const formateNumber = cleanNumber?.startsWith("55")
         ? cleanNumber : `55${cleanNumber}`
 
     return `https://wa.me/${formateNumber}`

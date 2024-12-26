@@ -2,14 +2,15 @@ import { useState } from "react";
 import { formatDate } from "@/lib/formatDate";
 import { StatusPayment } from "./statusPayment";
 import PaymentInfoCard from "./paymentInfoCard";
-import { TableProps, Ticket } from "@/lib/interface";
+import { TableProps, TicketInterface } from "@/lib/interface";
 import { formatCurrency } from "@/app/hooks/formatCurrency ";
+import { Ticket } from "lucide-react";
 
 export const TableMeusBilhetesUser = ({ tickets = [] }: TableProps) => {
     const [show, setShow] = useState(false);
-    const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
+    const [selectedTicket, setSelectedTicket] = useState<TicketInterface | null>(null);
 
-    function toggle(ticket: Ticket) {
+    function toggle(ticket: TicketInterface) {
         setSelectedTicket(ticket);
         setShow(!show);
     }
@@ -20,15 +21,16 @@ export const TableMeusBilhetesUser = ({ tickets = [] }: TableProps) => {
     };
 
     return (
-        <div className="border rounded-md lg:w-[1100px] flex overflow-y-auto custom-scrollbar lg:h-[580px]">
-            <div className=" overflow-x-scroll   lg:overflow-visible relative">
-                <table className=" lg:w-[1098px]">
+        <div className="border rounded-md w-full flex overflow-y-auto custom-scrollbar lg:h-[580px]">
+            <div className=" overflow-x-scroll w-full  lg:overflow-visible relative">
+                <table className=" w-full">
                     <thead className=" bg-gray-100">
                         <tr className="text-[17px]  ">
                             <th scope="col" className="px-4 lg:py-2 h-4 text-left">Nome</th>
                             <th scope="col" className="px-4 lg:py-2 h-4 text-left hidden lg:table-cell md:table-cell">Status Pagamento</th>
+                            <th scope="col" className="px-4 lg:py-2 h-4 text-left hidden lg:table-cell md:table-cell">Número de Tickets</th>
                             <th scope="col" className="px-4 lg:py-2 h-4 text-left hidden lg:table-cell md:table-cell">Data da compra</th>
-                            <th scope="col" className="px-4 lg:py-2 h-4 text-left hidden lg:table-cell ">Valor</th>
+                            <th scope="col" className="px-4 lg:py-2 h-4 text-left hidden lg:table-cell">Valor</th>
                             <th scope="col" className="px-4 lg:py-2 h-4 text-left ">Informações</th>
                         </tr>
                     </thead>
@@ -37,10 +39,16 @@ export const TableMeusBilhetesUser = ({ tickets = [] }: TableProps) => {
                             tickets.map((ticket, index) => (
                                 <tr key={index}>
                                     <td className="px-4 py-2 w-60 lg:text-lg text-base overflow-hidden truncate">
-                                        <p className="lg:w-96 w-32 truncate">{ticket.infosName || "Nome não disponível"}</p>
+                                        <p className="w-32 truncate">{ticket.infosName || "Nome não disponível"}</p>
                                     </td>
                                     <td className="px-4 py-2  hidden lg:table-cell md:table-cell">
                                         <StatusPayment infoPayment={ticket.infoPayment} />
+                                    </td>
+                                    <td className="px-4 py-2  text-lg  hidden md:table-cell lg:table-cell">
+                                        <div className="flex items-center">
+                                            <Ticket className="w-4 h-4 mr-2 text-primary" />
+                                            {ticket.ticketNumbers}
+                                        </div>
                                     </td>
                                     <td className="px-4 py-2  text-lg  hidden md:table-cell lg:table-cell">
                                         {ticket.infoDateBuy ? formatDate(ticket.infoDateBuy) : "Data não disponível"}

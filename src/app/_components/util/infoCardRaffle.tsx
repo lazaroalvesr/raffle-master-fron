@@ -4,8 +4,10 @@ import { formatDate } from "@/lib/formatDate"
 import { InfoRaffleProps } from "@/lib/interface"
 import { formatCurrency } from "@/app/hooks/formatCurrency "
 import { IoMdClose } from "react-icons/io";
+import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { AlertDialogCancel } from "@radix-ui/react-alert-dialog"
 
-export default function InfoCardRaffle({ name, availableTickets,quantityNumbers, endDate, ticketPrice, isRaffleActive, close }: InfoRaffleProps) {
+export default function InfoCardRaffle({ name, availableTickets, id, quantityNumbers, openModalInfoWinner, winnerTicketId, endDate, ticketPrice, drawWinner, isRaffleActive, close }: InfoRaffleProps) {
 
     return (
         <Card className="w-full max-w-md mx-auto relative">
@@ -19,6 +21,7 @@ export default function InfoCardRaffle({ name, availableTickets,quantityNumbers,
                 <div className="flex items-center justify-between">
                     <span className="text-sm font-medium text-muted-foreground">Rifa:</span>
                     <span className="font-semibold lg:text-sm text-xs w-[200px] lg:w-80 text-right">{name}</span>
+                    <span className="hidden">{id}</span>
                 </div>
                 <div className="flex items-center justify-between">
                     <span className="text-sm font-medium text-muted-foreground">Data do Sorteio:</span>
@@ -60,14 +63,57 @@ export default function InfoCardRaffle({ name, availableTickets,quantityNumbers,
                 <div className="flex items-center justify-between">
                     <span className="text-sm font-medium text-muted-foreground">Status:</span>
                     <button
-                        className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium ${isRaffleActive(endDate)
+                        className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium ${isRaffleActive(endDate, winnerTicketId)
                             ? 'bg-green-100 text-green-700 hover:bg-green-200'
                             : 'bg-red-100 text-red-700 hover:bg-red-200'
                             }`}
                     >
-                        {isRaffleActive(endDate) ? 'Ativa' : 'Inativa'}
+                        {isRaffleActive(endDate, winnerTicketId) ? 'Ativa' : 'Inativa'}
                     </button>
                 </div>
+                {winnerTicketId ? (
+                    <div className="w-full flex justify-between items-center">
+                        <span className="text-sm font-medium text-muted-foreground">Realizar Sorteio:</span>
+                        <button onClick={() => openModalInfoWinner(id)} className="bg-gradient-to-r from-green-500 to-green-800 text-white py-1 px-2 rounded shadow-md hover:from-green-600 hover:to-green-600 transition-all">
+                            Ver Ganhador
+                        </button>
+                    </div>
+
+                ) : (
+                    <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium text-muted-foreground">Realizar Sorteio:</span>
+                        <div className="flex items-center">
+                            <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                    <div className="w-full flex items-center justify-center">
+                                        <button className="bg-gradient-to-r from-green-500 to-green-800 text-white py-1 px-2 rounded shadow-md hover:from-green-600 hover:to-green-600 transition-all">
+                                            Iniciar Sorteio
+                                        </button>
+                                    </div>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent className="w-[340px] lg:w-full md:w-full">
+                                    <AlertDialogHeader>
+                                        <AlertDialogTitle>Confirmar sorteio</AlertDialogTitle>
+                                        <AlertDialogDescription>
+                                            Tem certeza que deseja realizar o sorteio desta rifa? Esta ação será irreversível e um vencedor será escolhido.
+                                        </AlertDialogDescription>
+                                    </AlertDialogHeader>
+
+                                    <AlertDialogFooter>
+                                        <AlertDialogCancel className="pt-3 lg:pt-0 md:pt-0">Cancelar</AlertDialogCancel>
+                                        <AlertDialogAction onClick={() => {
+                                            drawWinner(id);
+                                            close();
+                                        }}
+                                            className="bg-emerald-500 hover:bg-emerald-800 text-white">
+                                            Sim, realizar sorteio
+                                        </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialog>
+                        </div>
+                    </div>
+                )}
             </CardContent>
         </Card>
     )

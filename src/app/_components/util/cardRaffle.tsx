@@ -5,12 +5,13 @@ import { Check, Info, Ticket } from "lucide-react"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import RenderHTML from "./renderTiptapContent "
 
-export const CardRaffle = ({ src, text, href , quantityNumbers}: CardRaffleProps) => {
-    
+export const CardRaffle = ({ src, text, href, quantityNumbers, description }: CardRaffleProps) => {
+
     return (
         <Link href={href} className="w-full px-4 relative">
-            <Card className="w-full max-w-sm overflow-hidden transition-all duration-300 hover:shadow-lg">
+            <Card className="w-full max-w-sm overflow-hidden h-[480px] transition-all duration-300 hover:shadow-lg">
                 <div className="relative aspect-[16/9] overflow-hidden">
                     <Image
                         src={src}
@@ -46,14 +47,12 @@ export const CardRaffle = ({ src, text, href , quantityNumbers}: CardRaffleProps
                     </div>
 
                     <div className="space-y-2">
-                        <div className="flex items-center gap-2">
-                            <span className="text-2xl">🥩</span>
-                            <span className="text-gray-600">Picanha Premium</span>
+                        <div className="flex items-center gap-2 max-h-32">
+                            <span className="text-gray-600 w-full break-words h-24 p-0.5 overflow-hidden ">
+                                <RenderHTML content={description} />
+                            </span>
                         </div>
-                        <div className="flex items-center gap-2">
-                            <span className="text-2xl">🍺</span>
-                            <span className="text-gray-600">Cerveja Artesanal</span>
-                        </div>
+
                     </div>
                 </CardContent>
 

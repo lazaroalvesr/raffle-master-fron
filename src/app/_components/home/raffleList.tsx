@@ -37,6 +37,7 @@ export function RaffleList() {
                 <CardRaffle
                     key={item.id}
                     href={`/rifa/${item.id}`}
+                    description={item.description}
                     quantityNumbers={item.quantityNumbers}
                     src={item.image || "/img/default.jpg"}
                     text={item.name || "Sem título"}

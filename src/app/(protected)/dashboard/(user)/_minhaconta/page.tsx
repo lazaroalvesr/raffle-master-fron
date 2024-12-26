@@ -247,7 +247,7 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
                 </Dialog>
                 <AlertDialog>
                     <AlertDialogTrigger asChild>
-                        <Button variant="destructive" onClick={() => deleteAccount(user?.user.id, token)}>Deletar conta</Button>
+                        <Button variant="destructive">Deletar conta</Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                         <AlertDialogHeader>
@@ -259,7 +259,7 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                            <AlertDialogAction className="bg-destructive text-destructive-foreground">
+                            <AlertDialogAction className="bg-destructive text-destructive-foreground" onClick={() => deleteAccount(user?.user.id, token)}>
                                 Sim, deletar minha conta
                             </AlertDialogAction>
                         </AlertDialogFooter>

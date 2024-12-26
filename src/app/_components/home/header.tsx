@@ -18,9 +18,9 @@ export default function Header() {
     }
 
     return (
-        <header className="shadow-md bg-white">
+        <header className="shadow-md bg-gray-50">
             <div className="max-w-8xl lg:mx-12 px-4 sm:px-6 lg:px-3">
-                <div className="flex lg:justify-around md:justify-around items-center py-4">
+                <div className="flex m-auto lg:w-[1280px] justify-between py-4">
                     <div className=" flex-shrink-0">
                         <Link href="/" className="flex items-center">
                             <Clover className="h-10 w-10 text-green-500" />
@@ -43,7 +43,7 @@ export default function Header() {
     ${ativo ?
                             'z-40 absolute flex-col bg-white py-12 gap-y-3 text-center left-0 w-full top-20 transition-all duration-500 ease-in-out max-h-[300px] opacity-100'
                             :
-                            'z-40 absolute lg:static md:static md:flex-row flex-col bg-white py-0 gap-y-0 text-center left-0 w-full lg:w-fit md:w-fit top-20 transition-all duration-500 ease-in-out opacity-0 md:opacity-100 lg:opacity-100 overflow-auto h-0'}`}>
+                            'z-40 absolute lg:static md:static md:flex-row flex-col py-0 gap-y-0 text-center left-0 w-full lg:w-fit md:w-fit top-20 transition-all duration-500 ease-in-out opacity-0 md:opacity-100 lg:opacity-100 overflow-auto h-0'}`}>
 
                         <nav className='flex lg:flex-row gap-4 flex-col md:flex-row'>
                             <NavLinkHeader href="/">

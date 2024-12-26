@@ -38,7 +38,7 @@ const faqs = [
     },
     {
         question: "Posso transferir meu bilhete para outra pessoa?",
-        answer: "Não, os bilhetes são intransferíveis e estão vinculados ao CPF do comprador original."
+        answer: "Não, os bilhetes são intransferíveis e estão vinculados ao Email do comprador original."
     },
     {
         question: "Como saberei se ganhei?",

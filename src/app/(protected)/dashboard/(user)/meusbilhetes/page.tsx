@@ -63,7 +63,7 @@ export default function MeusBilhetesPage() {
             ) : error ? (
                 <div className="text-red-600">{error}</div>
             ) : (
-                <div className="lg:ml-7 px-3 lg:px-0 md:ml-5">
+                <div className="w-full px-4">
                     <TableMeusBilhetesUser
                         tickets={data.map((item: UserRaffleProps) => ({
                             nameRafle: item.raffle.name,
