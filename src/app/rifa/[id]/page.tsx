@@ -232,7 +232,7 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
                                     <Button
                                         onClick={() => buyTicket(count)}
                                         className={`w-full relative overflow-hidden transition-all duration-300 ${loadingBuy
-                                            ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                                            ? 'bg-green-600 text-gray-50 cursor-not-allowed'
                                             : 'bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white'
                                             }`}
                                         size="lg"
@@ -250,15 +250,15 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
                                             <span className="absolute inset-0 flex items-center justify-center">
                                                 <svg className="animate-spin h-5 w-5 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                    <path className="opacity-75" fill="white" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                                 </svg>
-                                                <span className="ml-2  text-gray-800">Comprando...</span>
+                                                <span className="ml-2 ">Comprando...</span>
                                             </span>
                                         )}
                                     </Button>
 
                                 </CardFooter>
-                                <div className="absolute  w-96 -bottom-14">
+                                <div className="absolute w-full bg-red-300 -bottom-14">
                                     {noticeMessage && <MensagemAviso text={noticeMessage || ""} />}
                                     {errorMessage && <MensagemError text={errorMessage || ""} />}
                                     {successMessage && <MensagemSucess text={successMessage || ""} />}
@@ -266,8 +266,8 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
                             </Card>
                         </div>
                         {successModalOpen && (
-                            <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70">
-                                <button onClick={closeSuccessModal} className="absolute lg:right-[488px] md:right-[140px] md:top-[276px] md:rounded-l-none md:rounded-br-md right-4 items-center flex justify-center top-[60px] rounded-b-none lg:rounded-b-none lg:rounded-br-md rounded-md lg:rounded-l-none lg:top-[78px] lg:rounded-r-md w-12 h-12 bg-white">
+                            <div className="fixed inset-0 w-full px-3 flex items-center justify-center z-50 bg-black bg-opacity-70">
+                                <button onClick={closeSuccessModal} className="absolute lg:right-[500px] md:right-[160px] md:top-[246.9px] md:rounded-l-none md:rounded-br-md right-7 items-center flex justify-center top-[55px] rounded-b-none lg:rounded-b-none lg:rounded-br-md rounded-md lg:rounded-l-none lg:top-[32px] lg:rounded-r-md w-12 h-12 bg-white">
                                     <Image
                                         src="/img/icons/close.svg"
                                         width={35}
@@ -278,6 +278,7 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
                                 <PurchaseCard
                                     quantity={quantity}
                                     qrCode={qrCode}
+                                    pixKey={buyTickets?.paymentDetails?.pixKey}
                                     ticketPrice={raffles?.raffle.ticketPrice}
                                     amount={buyTickets?.paymentDetails?.amount || 0}
                                     pixLink={buyTickets?.paymentDetails?.pixUrl}

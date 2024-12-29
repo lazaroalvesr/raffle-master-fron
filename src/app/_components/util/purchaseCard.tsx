@@ -6,11 +6,24 @@ import { Ticket } from "lucide-react"
 import { PurchaseBuyCardProps } from '@/lib/interface'
 import Link from 'next/link'
 import Image from "next/image"
+import { FaRegCopy } from "react-icons/fa";
+import { useState } from "react"
 
-export default function Component({ quantity, amount, pixLink, qrCode, ticketPrice }: PurchaseBuyCardProps) {
+export default function Component({ quantity, amount, pixLink, qrCode, ticketPrice, pixKey }: PurchaseBuyCardProps) {
+    const [showOK, setShowOk] = useState(false)
+
+    const copyToClipboard = async () => {
+        try {
+            await navigator.clipboard.writeText(pixKey);
+            setShowOk(true)
+        } catch (err) {
+            setShowOk(false)
+            throw new Error("Erro ao copiar chave PIX");
+        }
+    }
 
     return (
-        <Card className="w-full max-w-md mx-4 lg:mx-0">
+        <Card className="w-full max-w-md">
             <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                     Pagamento de Bilhetes
@@ -25,7 +38,22 @@ export default function Component({ quantity, amount, pixLink, qrCode, ticketPri
                         height={200}
                         alt="Imagem QRCODE"
                     />
-
+                </div>
+                <div className="flex flex-col w-full">
+                    <div className="flex justify-between">
+                        <span className="text-sm text-gray-500">Chave PIX copia e cola</span>
+                        {!showOK ? (
+                            <button onClick={copyToClipboard}><FaRegCopy /></button>
+                        ) : (
+                            <Image
+                                src="/img/icons/ok.png"
+                                alt="Icone OK"
+                                width={20}
+                                height={20}
+                            />
+                        )}
+                    </div>
+                    <span className="text-[11px] pt-2 font-bold  break-words">{pixKey}</span>
                 </div>
                 <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-500">Quantidade de bilhetes:</span>

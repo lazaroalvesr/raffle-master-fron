@@ -1,3 +1,5 @@
+"use client"
+
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -8,19 +10,30 @@ import { useState } from "react"
 import { StatusPaymentCard } from "./statusPaymentCard"
 import { formatDate } from "@/lib/formatDate"
 import { InfoPaymentProps } from "@/lib/interface"
+import { FaRegCopy } from "react-icons/fa"
 
-export default function PaymentInfoCard({ paymentMethod, close, namePayer, infoDateBuy, numTickets, infoPayment, pixLink, nameRafle }: InfoPaymentProps) {
+export default function PaymentInfoCard({ paymentMethod, close, namePayer, infoDateBuy, numTickets, infoPayment, pixLink, nameRafle, pixKey }: InfoPaymentProps) {
     const [showAllTickets, setShowAllTickets] = useState(false);
+    const [showOK, setShowOk] = useState(false)
 
+    const copyToClipboard = async () => {
+        try {
+            await navigator.clipboard.writeText(pixKey);
+            setShowOk(true)
+        } catch (err) {
+            setShowOk(false)
+            throw new Error("Erro ao copiar chave PIX");
+        }
+    }
     const toggleShowAllTickets = () => setShowAllTickets(!showAllTickets);
     return (
         <Card className="w-full max-w-md mx-auto relative">
-            <button onClick={close} className="w-10 lg:-right-10 rounded-b-none -top-10 right-0 lg:-top-0 md:-top-0 md:-right-10 absolute  md:rounded-l-none rounded-l-md lg:rounded-l-none md:rounded-r-md rounded-r-md shadow-md rounded-bl-none rounded-br-none lg:rounded-rb-none bg-white flex items-center justify-center">
+            <button onClick={close} className="absolute lg:-right-[40px] md:-right-[42px] md:top-0 md:rounded-l-none md:rounded-br-md right-0 items-center flex justify-center -top-10 rounded-b-none lg:rounded-b-none lg:rounded-br-md rounded-md lg:rounded-l-none lg:top-0 lg:rounded-r-md w-12 h-12 bg-white">
                 <Image
                     src="/img/icons/close.svg"
-                    width={40}
-                    height={40}
-                    alt="Close"
+                    width={35}
+                    height={35}
+                    alt="Close modal icon"
                 />
             </button>
             <CardHeader>
@@ -50,6 +63,22 @@ export default function PaymentInfoCard({ paymentMethod, close, namePayer, infoD
                         />
                         <span className="font-semibold">{paymentMethod}</span>
                     </div>
+                </div>
+                <div className="flex flex-col w-full">
+                    <div className="flex justify-between">
+                        <span className="text-sm text-gray-500">Chave PIX copia e cola</span>
+                        {!showOK ? (
+                            <button onClick={copyToClipboard}><FaRegCopy /></button>
+                        ) : (
+                            <Image
+                                src="/img/icons/ok.png"
+                                alt="Icone OK"
+                                width={20}
+                                height={20}
+                            />
+                        )}
+                    </div>
+                    <span className="text-[11px] pt-2 font-bold  break-words">{pixKey}</span>
                 </div>
                 <div className="flex items-center justify-between">
                     <span className="text-sm font-medium text-muted-foreground">Número de Tickets:</span>

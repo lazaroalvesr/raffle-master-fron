@@ -126,8 +126,6 @@ export default function CriarRifa() {
                 withCredentials: true,
             });
 
-            console.log(response)
-
             if (response && response.status === 200) {
                 setSucess("Rifa criada com sucesso!");
             }
@@ -276,9 +274,19 @@ export default function CriarRifa() {
                                 )}
 
                                 <CardFooter>
-                                    <Button type="submit" className={`w-full ${loading ? 'bg-gray-300 text-gray-600' : ""}`}>
-                                        {loading ? 'Criando Rifa...' : "Criar Rifa"}
-                                    </Button>
+                                    <button type="submit" className={`w-full rounded-md p-2 bg-gray-900 text-gray-50 ${loading ? 'bg-gray-200 opacity-50 text-gray-900' : ""}`}>
+                                        {loading ? (
+                                            <span className="flex items-center justify-center h-fit text-gray-50">
+                                                <svg className="animate-spin h-5 w-5 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                    <path className="opacity-75" fill="white" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                </svg>
+                                                <span className="ml-2">Criando Rifa...</span>
+                                            </span>
+                                        ) : (
+                                            <span>Criar Rifa</span>
+                                        )}
+                                    </button>
                                 </CardFooter>
                             </form>
                             {sucess && (

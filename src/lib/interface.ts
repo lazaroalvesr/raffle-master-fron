@@ -88,6 +88,7 @@ export interface PurchaseBuyCardProps {
     qrCode: string | any
     ticketPrice: string | any
     amount: number
+    pixKey: string
 }
 
 export interface TicketsProps {
@@ -122,6 +123,7 @@ export interface UserRaffleProps {
     status: StatusPayment | any
     createdAt: Date
     pixUrl: string | any
+    pixKey: string
     raffle: RaffleProps
     ticketNumbers: number[]
     user: {
@@ -143,6 +145,7 @@ export interface InfoPaymentProps {
     paymentMethod: "PIX"
     numTickets: number[] | any
     pixLink: string
+    pixKey: string
     close: () => void
 }
 
@@ -155,6 +158,7 @@ export interface TicketInterface {
     infoAmout: number;
     ticketNumbers?: number[];
     pixLink: string;
+    pixKey: string;
 }
 
 export interface TableProps {

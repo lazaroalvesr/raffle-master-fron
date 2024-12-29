@@ -44,7 +44,7 @@ export const TablePagamentosAdm = ({ raffles }: { raffles: RaffleInfoPaymento[] 
         setSelectedRaffle(null);
     };
     return (
-        <div className="w-full overflow-y-auto custom-scrollbar lg:h-[580px]">
+        <div className="w-full overflow-y-auto custom-scrollbar lg:h-[580px] lg:pb-0 pb-8">
             <div className="rounded-md w-full lg:mx-0 border bg-white shadow-sm lg:h-[508px] h-[605px] md:h-[810px]">
                 <div className="overflow-x-auto w-full">
                     <table className="w-full border-collapse">
@@ -141,9 +141,9 @@ export const TablePagamentosAdm = ({ raffles }: { raffles: RaffleInfoPaymento[] 
                     </div>
                 </div>
             )}
-            <div className="flex mt-8">
+            <div className="flex mt-8 lg:flex-row flex-col text-center items-center lg:text-start lg:items-start">
                 <p>Quantidade de Pagamentos: <span className="font-bold">{raffles.length}</span></p>
-                <div className=" items-center justify-center m-auto">
+                <div className="items-center justify-center m-auto">
                     <PaginationControl
                         setCurrentPage={setCurrentPage}
                         handleNextPage={handleNextPage}

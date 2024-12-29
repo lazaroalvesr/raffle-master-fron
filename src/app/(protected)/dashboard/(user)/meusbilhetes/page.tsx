@@ -70,6 +70,7 @@ export default function MeusBilhetesPage() {
                             infosName: item.raffle.name,
                             infoPayment: item.status,
                             infoDateBuy: item.createdAt,
+                            pixKey: item.pixKey,
                             infoAmout: item.amount,
                             ticketNumbers: item.ticketNumbers,
                             infoNamePayer: item.user.name,
