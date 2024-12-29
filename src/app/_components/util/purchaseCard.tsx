@@ -16,9 +16,9 @@ export default function Component({ quantity, amount, pixLink, qrCode, ticketPri
         try {
             await navigator.clipboard.writeText(pixKey);
             setShowOk(true)
-        } catch (err) {
+        } catch (err: any) {
             setShowOk(false)
-            throw new Error("Erro ao copiar chave PIX");
+            throw new Error("Erro ao copiar chave PIX", err);
         }
     }
 

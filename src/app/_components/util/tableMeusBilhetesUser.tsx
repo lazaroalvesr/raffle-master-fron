@@ -5,7 +5,6 @@ import PaymentInfoCard from "./paymentInfoCard";
 import { TableProps, TicketInterface } from "@/lib/interface";
 import { formatCurrency } from "@/app/hooks/formatCurrency ";
 import { Info, Ticket } from "lucide-react";
-import Image from "next/image";
 
 export const TableMeusBilhetesUser = ({ tickets = [] }: TableProps) => {
     const [show, setShow] = useState(false);
