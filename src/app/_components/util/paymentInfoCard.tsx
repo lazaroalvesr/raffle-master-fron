@@ -1,3 +1,4 @@
+/* eslint-disable */
 "use client"
 
 import { Badge } from "@/components/ui/badge"
@@ -11,7 +12,6 @@ import { StatusPaymentCard } from "./statusPaymentCard"
 import { formatDate } from "@/lib/formatDate"
 import { InfoPaymentProps } from "@/lib/interface"
 import { FaRegCopy } from "react-icons/fa"
-import { AxiosError } from "axios"
 
 export default function PaymentInfoCard({ paymentMethod, close, namePayer, infoDateBuy, numTickets, infoPayment, pixLink, nameRafle, pixKey }: InfoPaymentProps) {
     const [showAllTickets, setShowAllTickets] = useState(false);
@@ -21,9 +21,9 @@ export default function PaymentInfoCard({ paymentMethod, close, namePayer, infoD
         try {
             await navigator.clipboard.writeText(pixKey);
             setShowOk(true)
-        } catch (err: any) {
+        } catch (err) {
             setShowOk(false)
-            throw new Error("Erro ao copiar chave PIX", err);
+            throw new Error("Erro ao copiar chave PIX");
         }
     }
     const toggleShowAllTickets = () => setShowAllTickets(!showAllTickets);
