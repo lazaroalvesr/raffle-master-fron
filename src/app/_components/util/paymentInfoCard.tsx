@@ -65,22 +65,24 @@ export default function PaymentInfoCard({ paymentMethod, close, namePayer, infoD
                         <span className="font-semibold">{paymentMethod}</span>
                     </div>
                 </div>
-                <div className="flex flex-col w-full">
-                    <div className="flex justify-between">
-                        <span className="text-sm text-gray-500">Chave PIX copia e cola</span>
-                        {!showOK ? (
-                            <button onClick={copyToClipboard}><FaRegCopy /></button>
-                        ) : (
-                            <Image
-                                src="/img/icons/ok.png"
-                                alt="Icone OK"
-                                width={20}
-                                height={20}
-                            />
-                        )}
+                {infoPayment === 'pending' && (
+                    <div className="flex flex-col w-full">
+                        <div className="flex justify-between">
+                            <span className="text-sm text-gray-500">Chave PIX copia e cola</span>
+                            {!showOK ? (
+                                <button onClick={copyToClipboard}><FaRegCopy /></button>
+                            ) : (
+                                <Image
+                                    src="/img/icons/ok.png"
+                                    alt="Icone OK"
+                                    width={20}
+                                    height={20}
+                                />
+                            )}
+                        </div>
+                        <span className="text-[11px] pt-2 font-bold  break-words">{pixKey}</span>
                     </div>
-                    <span className="text-[11px] pt-2 font-bold  break-words">{pixKey}</span>
-                </div>
+                )}
                 <div className="flex items-center justify-between">
                     <span className="text-sm font-medium text-muted-foreground">Número de Tickets:</span>
                     <div className="flex items-center">

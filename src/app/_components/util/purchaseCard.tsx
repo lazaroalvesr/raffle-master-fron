@@ -24,7 +24,7 @@ export default function Component({ quantity, amount, pixLink, qrCode, ticketPri
     }
 
     return (
-        <Card className="w-full max-w-md">
+        <Card className="w-full max-w-md bg-gray-50">
             <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                     Pagamento de Bilhetes
@@ -32,7 +32,7 @@ export default function Component({ quantity, amount, pixLink, qrCode, ticketPri
                 </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-                <div className="relative p-4 bg-white flex items-center justify-center">
+                <div className="relative p-4 bg-gray-50 flex items-center justify-center">
                     <Image
                         src={`data:image/png;base64,${qrCode}`}
                         width={200}
