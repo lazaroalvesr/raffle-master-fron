@@ -43,7 +43,7 @@ export interface TicketProps {
 export interface InfosCardProps {
     ticketPrice: string | any
     quantityNumbers: number | any
-    endDate: string | undefined
+    endDate: string | Date | undefined; 
     winnerTicketId: string | undefined
 }
 

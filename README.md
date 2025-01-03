@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Rifaflow - Aplicação Frontend 
 
-First, run the development server:
+Este é o frontend do Rifaflow, a interface de usuário do sistema de vendas de rifas online. Desenvolvido com Next.js, ShadcnUI, React.js, TypeScript, Axios, React-Icons e Lucide Icons, o frontend oferece uma experiência rápida e responsiva. O sistema permite aos usuários visualizar rifas disponíveis, comprar ingressos, acompanhar seus tickets gerados e realizar pagamentos via Mercado Pago (PIX). A interface foi projetada para ser intuitiva, com um design moderno e componentes reutilizáveis, garantindo fluidez e facilidade de uso.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![App Screenshot](./public/img/Land.png)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tecnologias Utilizadas:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Nextjs
+- ReactJS
+- TypeScript
+- ShadcnUI
+- Axios
+- React-Icons
+- Lucide Icons
+  
+## Funcionalidades
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Visualização de Rifas**: Os usuários podem visualizar rifas disponíveis, com informações sobre prêmios, preço e número de ingressos restantes.
+- **Compra de Ingressos**: Funcionalidade para os usuários escolherem a quantidade de ingressos e realizar a compra.
+- **Emissão de Tickets**: Após a compra, os ingressos são automaticamente gerados e vinculados ao usuário.
+- **Acompanhamento de Rifas**: Os usuários podem acompanhar o status das rifas, incluindo prêmios e participantes.
+- **Emissão de Tickets**: Após a confirmação do pagamento, os ingressos são emitidos e vinculados ao usuário que realizou a compra.
+- **Responsividade**:  A interface é otimizada para dispositivos móveis e desktops, proporcionando uma boa experiência em qualquer tela.
+- **Design Moderno e Intuitivo**: Uso de componentes do ShadcnUI e Lucide Icons para garantir uma interface visualmente atraente e fácil de navegar.
 
-## Learn More
+## Authors
 
-To learn more about Next.js, take a look at the following resources:
+- [@lazaroalvesr](https://github.com/lazaroalvesr)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔗 Links
+- [Rifaflow](https://raffle-master-front.vercel.app/)
 
-## Deploy on Vercel
+[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://www.lazaroalvesr.com/)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/l%C3%A1zaro-alves-r/)

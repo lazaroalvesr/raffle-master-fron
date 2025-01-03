@@ -139,9 +139,6 @@ export default function CriarRifa() {
         }
     };
 
-    console.log(data)
-
-
     return (
         <div className="flex flex-col w-full pt-[60px] lg:pt-[16px] pb-6 lg:pb-0">
             <div className="flex flex-col justify-between relative">
