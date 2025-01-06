@@ -43,7 +43,7 @@ export interface TicketProps {
 export interface InfosCardProps {
     ticketPrice: string | any
     quantityNumbers: number | any
-    endDate: string | Date | undefined; 
+    endDate: string | Date | undefined;
     winnerTicketId: string | undefined
 }
 
@@ -85,7 +85,7 @@ export enum Role {
 export interface PurchaseBuyCardProps {
     quantity: number
     pixLink: string | any
-    qrCode: string | any
+    qrCode: string
     ticketPrice: string | any
     amount: number
     pixKey: string
@@ -165,6 +165,39 @@ export interface TableProps {
     tickets?: TicketInterface[];
 }
 
+
+export interface WinnerTicket {
+    id: string;
+    number: number[];
+    userId: string;
+    raffleId: string;
+    dateBuy: string;
+}
+
+export interface WonRaffle {
+    name: string;
+    winnerTicket: WinnerTicket;
+    drawDate: string;
+    startDate: string;
+    ticketPrice: string;
+}
+
+export interface Ticket {
+    id: string;
+    number: number[];
+    userId: string;
+    raffleId: string;
+    dateBuy: string;
+    wonRaffles: WonRaffle[];
+    close: () => void
+}
+
+export interface ApiResponse {
+    name: string;
+    surname: string;
+    email: string;
+    tickets: Ticket[];
+}
 export interface StatusPaymentCardProps {
     infoPayment: string | undefined
 }

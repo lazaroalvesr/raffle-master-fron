@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Clover, Home, Ticket, HelpCircle, Headphones, DollarSign, SquarePen, Users } from 'lucide-react'
+import { Clover, Home, Ticket, HelpCircle, Headphones, DollarSign, SquarePen, Users, Trophy } from 'lucide-react'
 import { IoMdClose } from 'react-icons/io'
 import { NavLink } from '../util/linkRedirect'
 import { UserNav } from './useNav'
@@ -61,12 +61,14 @@ export default function Sidebar({ ativo, setAtivo }: SidebarProps) {
                                         <Ticket className="h-5 w-5" />
                                         <span>Bilhetes</span>
                                     </NavLink>
-                                    <Link
-                                        href="/como-funciona"
-                                        className="flex items-center gap-2 rounded-lg px-3 py-2 transition-colors hover:bg-gray-50">
+                                    <NavLink href="/dashboard/historico-de-premios">
+                                        <Trophy className="h-5 w-5" />
+                                        <span>Histórico de Prêmios</span>
+                                    </NavLink>
+                                    <NavLink href="/como-funciona">
                                         <Headphones className="h-5 w-5" />
                                         Suporte
-                                    </Link>
+                                    </NavLink>
                                 </nav>
                             </div>
 
@@ -87,7 +89,7 @@ export default function Sidebar({ ativo, setAtivo }: SidebarProps) {
                                         <span>Criar Rifa</span>
                                     </NavLink>
                                     <NavLink href="/dashboard/users">
-                                        <Users  className="h-5 w-5" />
+                                        <Users className="h-5 w-5" />
                                         <span>Todos os Participantes</span>
                                     </NavLink>
                                 </nav>
@@ -100,6 +102,6 @@ export default function Sidebar({ ativo, setAtivo }: SidebarProps) {
             <div className="border-t border-gray-200 p-4 mt-auto">
                 <UserNav name={user?.user?.name} email={user?.user?.email} isAdm={isAdm} />
             </div>
-        </aside>
+        </aside >
     )
 }

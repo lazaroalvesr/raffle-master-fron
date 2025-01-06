@@ -34,7 +34,7 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
     const [successModalOpen, setSuccessModalOpen] = useState<boolean>(false);
     const [buyTickets, setBuyTickets] = useState<any>(null);
     const [quantity, setQuantity] = useState<number>(0);
-    const [qrCode, setQrCode] = useState<String>("")
+    const [qrCode, setQrCode] = useState("")
     const [show, setShow] = useState(false);
     const [count, setCount] = useState(1);
     const [noticeMessage, setNoticeMessage] = useState<string | null>(null);
@@ -83,8 +83,6 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
                 }
             );
 
-            console.log(response.data)
-
             setBuyTickets(response.data);
             setQuantity(quantity);
             setQrCode(response.data.paymentDetails.qrCode);
@@ -92,19 +90,11 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
             setSuccessModalOpen(true);
 
         } catch (error: any) {
-            console.error('Erro detalhado:', error);
-
             if (error.response) {
-                console.error('Erro de Resposta:', error.response.data);
-                console.error('Status:', error.response.status);
-                console.error('Headers:', error.response.headers);
-
                 setErrorMessage(`Erro ao comprar número: ${error.response.data.message || 'Erro desconhecido'}`);
             } else if (error.request) {
-                console.error('Erro de Requisição:', error.request);
                 setErrorMessage("Sem resposta do servidor");
             } else {
-                console.error('Erro de Configuração:', error.message);
                 setErrorMessage("Erro na configuração da requisição");
             }
         } finally {

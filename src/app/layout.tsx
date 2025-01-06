@@ -12,7 +12,11 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
   title: "Rifa Flow",
-  description: "Rifa Flow é uma solução digital para hospedagem e gerenciamento de rifas online, oferecendo funções tanto para administradores (que criam e gerenciam as rifas) quanto para participantes (que ingressam e compram bilhetes).",
+  description: `Rifa Flow é uma solução digital 
+  para hospedagem e gerenciamento de rifas online,
+   oferecendo funções tanto para administradores 
+   (que criam e gerenciam as rifas) 
+   quanto para participantes (que ingressam e compram bilhetes).`,
 };
 
 export default function RootLayout({

@@ -23,7 +23,7 @@ export default function EditPost({ params }: { params: Promise<{ recoverToken: s
         setLoading(true)
 
         try {
-            await axios.patch(`https://raffle-master-back.vercel.app/auth/reset-password/${recoverToken}`, {
+            await axios.patch(`http://tecnewsbr.com.br/auth/reset-password/${recoverToken}`, {
                 password,
                 passwordConfirmation
             })

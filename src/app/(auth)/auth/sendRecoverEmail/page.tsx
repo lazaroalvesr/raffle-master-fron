@@ -18,7 +18,7 @@ export default function ResetSenha() {
         setLoading(true)
 
         try {
-            await axios.post('https://raffle-master-back.vercel.app/auth/send-recover-email', {
+            await axios.post('http://tecnewsbr.com.br/auth/send-recover-email', {
                 email,
             })
 

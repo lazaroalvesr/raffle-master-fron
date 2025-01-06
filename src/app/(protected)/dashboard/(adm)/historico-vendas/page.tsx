@@ -53,7 +53,7 @@ const PaymentsTable = () => {
     }, [selectedRaffle]);
 
     return (
-        <div className="flex flex-col w-full pt-[60px] lg:pt-[16px] ">
+        <div className="flex flex-col w-full pt-[60px] lg:pt-[16px]">
             <div className="flex flex-col justify-between">
                 <div className="flex w-full md:flex-row lg:flex-row pb-4 md:pb-0 lg:pb-0 flex-col justify-between pl-8 lg:pl-6 border-b md:pl-8 mb-6 border-gray-200 lg:w-full">
                     <h1 className="mb-2 text-3xl font-bold tracking-tight">Histórico de vendas</h1>

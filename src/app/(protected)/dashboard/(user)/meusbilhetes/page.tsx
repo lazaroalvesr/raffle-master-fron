@@ -7,6 +7,7 @@ import { UserRaffleProps } from "@/lib/interface";
 import { TableMeusBilhetesUser } from "@/app/_components/util/tableMeusBilhetesUser";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { Loading } from "@/app/_components/util/loading";
 
 export default function MeusBilhetesPage() {
     const { user } = useUser();
@@ -56,10 +57,7 @@ export default function MeusBilhetesPage() {
                 <h1 className="mb-2 text-3xl font-bold tracking-tight">Meus Números da Sorte</h1>
             </div>
             {loading ? (
-                <div className="flex justify-center items-center h-full lg:ml-12 md:ml-12">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-                    <p className="ml-4 text-lg">Loading...</p>
-                </div>
+                <Loading />
             ) : error ? (
                 <div className="text-red-600">{error}</div>
             ) : (
