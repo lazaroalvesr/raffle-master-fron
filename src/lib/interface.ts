@@ -89,6 +89,7 @@ export interface PurchaseBuyCardProps {
     ticketPrice: string | any
     amount: number
     pixKey: string
+    closeSuccessModal?: () => void
 }
 
 export interface TicketsProps {
@@ -150,6 +151,7 @@ export interface InfoPaymentProps {
 }
 
 export interface TicketInterface {
+    id: string
     nameRafle: string
     infosName?: string;
     infoPayment?: string;
@@ -193,9 +195,6 @@ export interface Ticket {
 }
 
 export interface ApiResponse {
-    name: string;
-    surname: string;
-    email: string;
     tickets: Ticket[];
 }
 export interface StatusPaymentCardProps {
@@ -303,9 +302,38 @@ export interface InfoRaffleProps {
     drawWinner: (id: string) => Promise<void>
 }
 
-export interface RaffleInfoPaymento {
+interface RafflePaymentInfo {
+    name: string
     user: {
         name: string
+        telephone: string
+    }
+    tickets: {
+        number: number[]
+        dateBuy: Date
+    }[]
+}
+
+export interface PaymentInfoAllProps {
+    id: string
+    amount: number
+    payerEmail: string
+    status: "approved" | "cancelled" | "pending" | "rejected";
+    ticketNumbers: number[],
+    createdAt: Date,
+    raffle: RafflePaymentInfo
+}
+
+export interface InfoCardReportProps extends Partial<Omit<PaymentInfoAllProps, 'ticketNumbers, raffle'>> {
+    raffle: RafflePaymentInfo
+    ticketNumbers: number[]
+    close?: () => void
+}
+
+
+export interface RaffleInfoPaymento {
+    user: {
+        email: string
     },
     name: string
     status: StatusPayment | any

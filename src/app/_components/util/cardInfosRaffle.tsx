@@ -50,7 +50,6 @@ export const CardInfosRaffle = ({ endDate, quantityNumbers, ticketPrice, winnerT
                             </span>
                         </div>
                     )}
-
                 </div>
             </CardContent>
         </Card>

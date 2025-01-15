@@ -257,14 +257,6 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
                         </div>
                         {successModalOpen && (
                             <div className="fixed inset-0 w-full px-3 flex items-center justify-center z-50 bg-black bg-opacity-70">
-                                <button onClick={closeSuccessModal} className="absolute lg:right-[490px] md:right-[150px] md:top-[236.9px] md:rounded-l-none md:rounded-br-md right-4 items-center flex justify-center top-[52px] rounded-b-none lg:rounded-b-none lg:rounded-br-md rounded-md lg:rounded-l-none lg:top-[32px] lg:rounded-r-md w-16 md:w-14 lg:w-14 h-12 bg-gray-50">
-                                    <Image
-                                        src="/img/icons/close.svg"
-                                        width={35}
-                                        height={35}
-                                        alt="Close modal icon"
-                                    />
-                                </button>
                                 <PurchaseCard
                                     quantity={quantity}
                                     qrCode={qrCode}
@@ -272,6 +264,7 @@ export default function RaffleUnique({ params }: { params: Promise<{ id: string 
                                     ticketPrice={raffles?.raffle.ticketPrice}
                                     amount={buyTickets?.paymentDetails?.amount || 0}
                                     pixLink={buyTickets?.paymentDetails?.pixUrl}
+                                    closeSuccessModal={closeSuccessModal}
                                 />
                             </div>
                         )}

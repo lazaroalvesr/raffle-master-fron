@@ -60,7 +60,7 @@ export default function ModalRaffleWon({ tickets, close }: { tickets: Ticket[], 
                                     <span className="font-semibold">{formatDate(ticket.dateBuy)}</span>
                                 </div>
                                 <div className="flex items-center justify-between">
-                                    <span className="text-sm font-medium text-muted-foreground">Data do S:</span>
+                                    <span className="text-sm font-medium text-muted-foreground">Data do Sorteio:</span>
                                     <span className="font-semibold">{formatDate(wonRaffle.drawDate)}</span>
                                 </div>
                                 <div className="flex items-center justify-between">

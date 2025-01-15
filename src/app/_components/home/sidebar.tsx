@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Clover, Home, Ticket, HelpCircle, Headphones, DollarSign, SquarePen, Users, Trophy } from 'lucide-react'
+import { Clover, Home, Ticket, HelpCircle, Headphones, DollarSign, SquarePen, Users, Trophy, Notebook } from 'lucide-react'
 import { IoMdClose } from 'react-icons/io'
 import { NavLink } from '../util/linkRedirect'
 import { UserNav } from './useNav'
@@ -84,6 +84,10 @@ export default function Sidebar({ ativo, setAtivo }: SidebarProps) {
                                         <DollarSign className="h-5 w-5" />
                                         <span>Pagamentos</span>
                                     </NavLink>
+                                    <NavLink href="/dashboard/relatorio-de-pagamentos">
+                                        <Notebook  className="h-5 w-5" />
+                                        <span>Relatório de Pagamentos</span>
+                                    </NavLink>
                                     <NavLink href="/dashboard/criar-rifa">
                                         <SquarePen className="h-5 w-5" />
                                         <span>Criar Rifa</span>
@@ -98,7 +102,6 @@ export default function Sidebar({ ativo, setAtivo }: SidebarProps) {
                     </div>
                 </div>
             </div>
-
             <div className="border-t border-gray-200 p-4 mt-auto">
                 <UserNav name={user?.user?.name} email={user?.user?.email} isAdm={isAdm} />
             </div>

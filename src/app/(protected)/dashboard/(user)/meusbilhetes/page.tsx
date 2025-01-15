@@ -20,7 +20,6 @@ export default function MeusBilhetesPage() {
     useEffect(() => {
         const fetchData = async () => {
             if (!user?.user?.id) {
-                console.log("User ID is not available.");
                 return;
             }
 
@@ -64,6 +63,7 @@ export default function MeusBilhetesPage() {
                 <div className="w-full px-4">
                     <TableMeusBilhetesUser
                         tickets={data.map((item: UserRaffleProps) => ({
+                            id: item.id,
                             nameRafle: item.raffle.name,
                             infosName: item.raffle.name,
                             infoPayment: item.status,

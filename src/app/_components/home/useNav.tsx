@@ -51,11 +51,12 @@ export function UserNav({ email, name, isAdm }: UserNavProps) {
             </Avatar>
             <div className="flex items-start flex-col space-y-1">
               <p className="text-sm font-medium leading-none">{name}</p>
-              <p className="text-xs leading-none text-muted-foreground">{email}</p>
+              <p className="text-xs w-32 overflow-hidden text-left leading-none whitespace-nowrap text-ellipsis text-muted-foreground">{email}</p>
             </div>
           </div>
-          <div>
+          <div className="min-w-[20px]">
             <Image
+              className="flex-shrink-1"
               src="/img/icons/chevrons-down-up.svg"
               alt="w"
               width={20}

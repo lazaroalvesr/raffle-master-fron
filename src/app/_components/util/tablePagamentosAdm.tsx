@@ -3,7 +3,7 @@
 "use client"
 
 import { useState } from "react";
-import { formatDateWithMonthName } from "@/lib/formatDate";
+import { formatDateWithMonthNameAndHours } from "@/lib/formatDate";
 import { RaffleInfoPaymento } from "@/lib/interface";
 import { Calendar, Info, SearchX } from "lucide-react";
 import { StatusPayment } from "./statusPayment";
@@ -50,7 +50,7 @@ export const TablePagamentosAdm = ({ raffles }: { raffles: RaffleInfoPaymento[] 
                     <table className="w-full border-collapse">
                         <thead>
                             <tr className="border-b bg-gray-50/40">
-                                <th className="py-4 px-4 text-left text-sm font-medium text-gray-500">Nome do Pagador</th>
+                                <th className="py-4 px-4 text-left text-sm font-medium text-gray-500">Email do Comprador</th>
                                 <th className="py-4 px-4 text-left text-sm font-medium text-gray-500 hidden lg:table-cell md:table-cell">Rifa</th>
                                 <th className="py-4 px-4 text-left text-sm font-medium text-gray-500 hidden lg:table-cell md:table-cell">Status Pagamento</th>
                                 <th className="py-4 px-4 text-left text-sm font-medium text-gray-500 hidden lg:table-cell md:hidden">Quantidade de Números</th>
@@ -78,12 +78,12 @@ export const TablePagamentosAdm = ({ raffles }: { raffles: RaffleInfoPaymento[] 
                                     <tr key={index} className="border-b transition-colors hover:bg-gray-50/50">
                                         <td className="py-4 px-4">
                                             <div className="flex flex-col">
-                                                <span className="font-medium w-28 truncate text-gray-900">{rifa.user.name}</span>
+                                                <span className="font-medium w-28 lg:w-36 truncate text-gray-900">{rifa.user.email}</span>
                                             </div>
                                         </td>
                                         <td className="py-4 px-4 hidden lg:table-cell md:table-cell">
                                             <div className="flex flex-col">
-                                                <span className="font-medium w-40 lg:w-30 truncate text-gray-900">{rifa.name}</span>
+                                                <span className="font-medium w-40 lg:w-52 truncate text-gray-900">{rifa.name}</span>
                                             </div>
                                         </td>
                                         <td className="py-4 px-4 hidden lg:table-cell md:table-cell">
@@ -99,7 +99,7 @@ export const TablePagamentosAdm = ({ raffles }: { raffles: RaffleInfoPaymento[] 
                                         <td className="py-4 px-4 lg:flex  items-center gap-1 hidden  md:hidden">
                                             <Calendar className="h-4 w-4 text-gray-500" />
                                             <span className="text-sm text-gray-600">
-                                                {formatDateWithMonthName(rifa.createdAt)}
+                                                {formatDateWithMonthNameAndHours(rifa.createdAt)}
                                             </span>
                                         </td>
                                         <td className="py-4 px-4 hidden lg:table-cell md:table-cell">
@@ -126,11 +126,10 @@ export const TablePagamentosAdm = ({ raffles }: { raffles: RaffleInfoPaymento[] 
                 </div>
             </div>
             {show && selectedRaffle && (
-
                 <div className="fixed px-4 z-50 lg:px-0 w-full left-0 top-0 m-auto h-screen flex items-center justify-center bg-gray-400/50">
                     <div className="animate-modalShow w-full">
                         <InfoCardPaymentInfo
-                            user={{ name: selectedRaffle.user.name }}
+                            user={{ email: selectedRaffle.user.email }}
                             name={selectedRaffle?.name}
                             amount={selectedRaffle?.amount}
                             createdAt={selectedRaffle?.createdAt}

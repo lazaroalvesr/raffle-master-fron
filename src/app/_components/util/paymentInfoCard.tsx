@@ -80,27 +80,29 @@ export default function PaymentInfoCard({ paymentMethod, close, namePayer, infoD
                                 />
                             )}
                         </div>
-                        <span className="text-[11px] pt-2 font-bold  break-words">{pixKey}</span>
+                        <span className="text-[10px] lg:text-[11px] md:text-[11px] pt-2 font-bold break-words">{pixKey}</span>
                     </div>
                 )}
                 <div className="flex items-center justify-between">
                     <span className="text-sm font-medium text-muted-foreground">Número de Tickets:</span>
-                    <div className="flex items-center">
-                        <Ticket className="w-4 h-4 mr-2 text-primary" />
-                        <span className="font-semibold text-sm">
-                            {showAllTickets
-                                ? numTickets.join(", ")
-                                : numTickets.slice(0, 5).join(", ")}
+                    <div className="flex items-center text-right">
+                        <div className="font-semibold text-sm flex items-start">
+                            <Ticket className="w-4 h-4 mr-1 text-primary mt-0.5 flex-shrink-0" />
+                            <div className="flex flex-col">
+                                {showAllTickets
+                                    ? numTickets.join(", ")
+                                    : numTickets.slice(0, 5).join(", ")}
 
-                            {numTickets.length > 5 && !showAllTickets && (
-                                <button
-                                    onClick={toggleShowAllTickets}
-                                    className="text-blue-500 hover:underline ml-1"
-                                >
-                                    ... +{numTickets.length - 5} mais
-                                </button>
-                            )}
-                        </span>
+                                {numTickets.length > 5 && !showAllTickets && (
+                                    <button
+                                        onClick={toggleShowAllTickets}
+                                        className="text-blue-500 hover:underline ml-1"
+                                    >
+                                        ... +{numTickets.length - 5} mais
+                                    </button>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
 

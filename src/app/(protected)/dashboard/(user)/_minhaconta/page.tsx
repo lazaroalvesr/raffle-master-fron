@@ -40,7 +40,6 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
         setIsOpen(true)
     }
 
-
     const handleTelephoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData((prevData) => ({
             ...prevData,
@@ -122,7 +121,7 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
 
     return (
         <Card className="w-full z-50 max-w-md mx-auto relative">
-            <button onClick={() => setIsModalOpen(false)} className="absolute lg:-right-[45px] md:-right-[42px] md:-top-[0.5px] md:rounded-l-none md:rounded-br-md right-0 items-center flex justify-center -top-[40px] rounded-b-none lg:rounded-b-none lg:rounded-br-md rounded-md lg:rounded-l-none lg:top-0 lg:rounded-r-md w-12 h-12 bg-white">
+            <button onClick={() => setIsModalOpen(false)} className="absolute lg:-right-[38px] md:-right-[42px] md:-top-[0.5px] md:rounded-l-none md:rounded-br-md right-0 items-center flex justify-center -top-[40px] rounded-b-none lg:rounded-b-none lg:rounded-br-md rounded-md lg:rounded-l-none lg:-top-[0.1px] lg:rounded-r-md w-12 h-12 bg-white">
                 <IoMdClose size={30} />
             </button>
             <CardHeader className="relative flex flex-col items-center space-y-4 pb-6 pt-8">
@@ -231,7 +230,9 @@ export default function ModalMinhaContaPage({ setIsModalOpen }: { setIsModalOpen
                                         <DialogFooter className="w-full lg:gap-32 gap-6">
                                             <Button
                                                 disabled={loading}
-                                                type="button" variant="outline" onClick={() => setIsEditing(false)}>
+                                                type="button" variant="outline"
+                                                className="w-full"
+                                                onClick={() => setIsEditing(false)}>
                                                 Cancelar
                                             </Button>
                                             <Button disabled={loading} type="submit" className="w-full">

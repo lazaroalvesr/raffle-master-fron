@@ -10,7 +10,7 @@ import Image from "next/image"
 import { FaRegCopy } from "react-icons/fa";
 import { useState } from "react"
 
-export default function Component({ quantity, amount, pixLink, qrCode, ticketPrice, pixKey }: PurchaseBuyCardProps) {
+export default function Component({ quantity, amount, pixLink, qrCode, ticketPrice, pixKey, closeSuccessModal }: PurchaseBuyCardProps) {
     const [showOK, setShowOk] = useState(false)
 
     const copyToClipboard = async () => {
@@ -24,7 +24,15 @@ export default function Component({ quantity, amount, pixLink, qrCode, ticketPri
     }
 
     return (
-        <Card className="w-full max-w-md bg-gray-50">
+        <Card className="w-full max-w-md bg-gray-50 relative">
+            <button onClick={closeSuccessModal} className="absolute lg:-right-12 md:-right-12 md:top-0  md:rounded-l-none md:rounded-br-md right-2 items-center flex justify-center top-3 rounded-b-none lg:rounded-b-none lg:rounded-br-md rounded-md lg:rounded-l-none lg:top-0 lg:rounded-r-md w-16 md:w-14 lg:w-14 h-12 bg-gray-50">
+                <Image
+                    src="/img/icons/close.svg"
+                    width={35}
+                    height={35}
+                    alt="Close modal icon"
+                />
+            </button>
             <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                     Pagamento de Bilhetes
