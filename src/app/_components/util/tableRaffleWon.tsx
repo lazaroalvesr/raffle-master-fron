@@ -34,7 +34,6 @@ export const TableRaffleWon = ({ tickets }: { tickets: Ticket[] }) => {
 
     const displayedPayments = tickets.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
 
-    console.log(tickets)
     const close = () => {
         setShow(false);
         setRaffleWon(null);

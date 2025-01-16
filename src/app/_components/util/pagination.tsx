@@ -12,7 +12,7 @@ export const PaginationControl = ({ handleNextPage, handlePrevPage, currentPage,
         <Pagination>
             <PaginationContent>
                 <PaginationItem>
-                    <PaginationPrevious href="#" onClick={handlePrevPage} />
+                    <PaginationPrevious href="#" onClick={handlePrevPage}  />
                 </PaginationItem>
                 {pages.map((page) => (
                     <PaginationItem key={page} className="lg:w-full md:w-full w-5 overflow-hidden md:overflow-auto lg:overflow-auto flex">
