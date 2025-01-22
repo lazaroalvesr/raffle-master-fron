@@ -32,6 +32,7 @@ Este é o frontend do Rifaflow, a interface de usuário do sistema de vendas de 
 
 ## 🔗 Links
 - [Rifaflow](https://raffle-master-front.vercel.app/)
+- [Back-end](https://github.com/lazaroalvesr/raffleflow-backend)
 
 [![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://www.lazaroalvesr.com/)
 
